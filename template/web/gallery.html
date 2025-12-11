@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <jcms:site:seotitle/>
+
+    <!-- Fevicon -->
+    <jcms:site:fevicon/>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/flatpickr.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <link rel="stylesheet" href="css/lightgallery.min.css">
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css'
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Main Header-->
+        <jcms:module:header/>
+    
+        <!--End Main Header -->
+        <jcms:module:gallery-bread/>
+        <!-- Start main-content -->
+
+        <!-- end main-content -->
+
+        <!-- About Section -->
+        <section class="about-section">
+            <div class="container-fluid gallery-page1 px-5">
+                <section class="main text-center">
+                    <div class="container">
+                        <ul class="list-unstyled row gallery-ul">
+                            <li class="col-md active" data-class="all">ALL</li>
+                            <jcms:module:gallery-nav/>
+                        </ul>
+                    </div>
+
+                    <div class="container-fluid" id="gallery">
+                    <jcms:module:gallery-list/>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Main Footer -->
+    <jcms:module:footer/>
+        <!--End Main Footer -->
+
+        <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-up"></span></div>
+    </div>
+
+    <!-- End Page Wrapper -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/slick-animation.min.js"></script>
+    <script src="js/jquery.fancybox.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <script src="js/function.js"></script>
+
+    <!-- lightgallery plugins -->
+    <script src="js/lightgallery.min.js"></script>
+    <script src="js/lg-share.min.js"></script>
+    <script src="js/lg-fullscreen.min.js"></script>
+    <script src="js/lg-zoom.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#gallery").lightGallery();
+        });
+    </script>
+</body>
+
+</html>
