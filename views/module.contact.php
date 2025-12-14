@@ -120,29 +120,29 @@ if (defined('CONTACT_PAGE')) {
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-3">
-                    <input name="form_name" class="form-control" type="text" placeholder="Enter Name">
+                    <input name="name" class="form-control" type="text" placeholder="Enter Name">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="mb-3">
-                    <input name="form_email" class="form-control required email" type="email" placeholder="Enter Email">
+                    <input name="email" class="form-control required email" type="email" placeholder="Enter Email">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-3">
-                    <input name="form_subject" class="form-control required" type="text" placeholder="Enter Subject">
+                    <input name="address" class="form-control required" type="text" placeholder="Enter Subject">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="mb-3">
-                    <input name="form_phone" class="form-control" type="text" placeholder="Enter Phone">
+                    <input name="phone" class="form-control" type="text" placeholder="Enter Phone">
                   </div>
                 </div>
               </div>
               <div class="mb-3">
-                <textarea name="form_message" class="form-control required" rows="7"
+                <textarea name="message" class="form-control required" rows="7"
                   placeholder="Enter Message"></textarea>
               </div>
               <div class="mb-5">

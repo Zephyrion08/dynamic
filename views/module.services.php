@@ -149,9 +149,13 @@ if (defined('FACILITY_PAGE')) {
     // pr($imglink);
     if (!empty($imglink)) {
         $img = IMAGE_PATH . 'preference/facility/' . $siteRegulars->facility_upload;
-    } else {
+    } elseif (!empty($siteRegulars->other_upload)) {
         $img = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+    } else {
+        $img = BASE_URL . 'template/web/images/background/page-title-bg.png';
+
     }
+
 
     $facility_bread = '
         <section class="page-title" style="background-image: url(' . $img . ');">
@@ -301,11 +305,13 @@ if (defined('HOME_PAGE')) {
                     $imglink = IMAGE_PATH . 'services/' . $img[0];
 
                     // link logic
-                    $link = '<div class="butn-dark"> <a href="' . BASE_URL . 'service/' . $recservice->slug . '"><span>Explore</span></a> </div>';
+                    $link = '
+                    <a href="' . BASE_URL . 'service/' . $recservice->slug . '">' . $recservice->sub_title . '</a>';
                     if (!empty($recservice->linksrc)) {
                         $target = ($recservice->linktype == 1) ? 'target="_blank"' : '';
                         $base_url = ($recservice->linktype == 1) ? $recservice->linksrc : BASE_URL . $recservice->linksrc;
-                        $link = '<div class="butn-dark"> <a href="' . $base_url . '" ' . $target . '><span>Explore</span></a> </div>';
+                        $link = '
+                        <a href="="' . $base_url . '" ' . $target . '">' . $recservice->sub_title . '</a>';
                     }
 
                     if ($i % 2 == 0) {
@@ -318,7 +324,7 @@ if (defined('HOME_PAGE')) {
                                 </div>
                                 <div class="overlay-content">
                                     <div class="category">' . $recservice->title . '</div>
-                                    <h3 class="title"><a href="#">' . $recservice->sub_title . '</a></h3>
+                                    <h3 class="title">' . $link . '</h3>
                                 </div>
                                 </div>
                             </div>
@@ -336,7 +342,7 @@ if (defined('HOME_PAGE')) {
                                 </div>
                                 <div class="overlay-content">
                                     <div class="category">' . $recservice->title . '</div>
-                                    <h3 class="title"><a href="#">' . $recservice->sub_title . '</a></h3>
+                                    <h3 class="title">' . $link . '</h3>
                                 </div>
                                 </div>
                             </div>

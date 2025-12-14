@@ -6,13 +6,15 @@
     <title>Hotel Layout</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/flatpickr.min.css">
+    <!-- <link rel="stylesheet" href="css/flatpickr.min.css"> -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/slick-theme.css">
     <link rel="stylesheet" href="css/slick.css">
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css'
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css'>
+
 
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
@@ -37,7 +39,7 @@
         <!--Room Details Start-->
 
         <!--Room Details End-->
-<jcms:module:footer/>
+        <jcms:module:footer/>
         <!-- Main Footer -->
         <!--End Main Footer -->
 
@@ -58,6 +60,61 @@
     <script src="js/owl.js"></script>
     <script src="js/swiper.min.js"></script>
     <script src="js/script.js"></script>
+    <script>
+       $(document).ready(function () {
+
+            $("#check_in").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: 0,
+                onSelect: function (selectedDate) {
+                    var date = new Date(selectedDate);
+                    date.setDate(date.getDate() + 1);
+
+                    $("#check_out").datepicker("option", "minDate", date);
+                    $("#check_out").datepicker("setDate", date);
+                }
+            }).datepicker("setDate", new Date());
+
+            $("#check_out").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: 1
+            });
+
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            $("#check_out").datepicker("setDate", tomorrow);
+
+        });
+
+            //    $(document).ready(function () {
+            //         // Get today's date
+            //         var today = new Date();
+            //         var tomorrow = new Date();
+            //         tomorrow.setDate(today.getDate() + 1);
+
+            //         // Initialize check-in datepicker
+            //         $("#checkin").datepicker({
+            //             dateFormat: 'yy-mm-dd',
+            //             minDate: today,
+            //             onSelect: function (dateText) {
+            //                 var selectedDate = new Date(dateText);
+            //                 var nextDay = new Date(selectedDate);
+            //                 nextDay.setDate(selectedDate.getDate() + 1);
+
+            //                 // Update checkout datepicker
+            //                 $("#checkout").datepicker("option", "minDate", nextDay);
+            //                 $("#checkout").datepicker("setDate", nextDay);
+            //             }
+            //         }).datepicker("setDate", today);
+
+            //         // Initialize check-out datepicker
+            //         $("#checkout").datepicker({
+            //             dateFormat: 'yy-mm-dd',
+            //             minDate: tomorrow
+            //         }).datepicker("setDate", tomorrow);
+            //     });
+    </script>
+
 </body>
 
 </html>

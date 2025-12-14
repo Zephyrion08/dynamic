@@ -16,15 +16,33 @@ if (defined('PACKAGE_PAGE') and isset($_REQUEST['slug'])) {
 
     if ($pkgRow->type == 1) {
 
-        $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+
         $pkgRowImg = $pkgRow->banner_image;
-        if ($pkgRowImg != "a:0:{}") {
-            $pkgRowList = unserialize($pkgRowImg);
-            $file_path = SITE_ROOT . 'images/package/banner/' . $pkgRowList[0];
-            if (file_exists($file_path) and !empty($pkgRowList[0])) {
-                $imglink = IMAGE_PATH . 'package/banner/' . $pkgRowList[0];
-            } else {
-                $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+
+
+
+
+        // new code
+        if (!empty($siteRegulars->other_upload)) {
+            $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+        } else {
+            $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+            ;
+        }
+
+        // Start with default banner
+        $imglink = $defaultImg;
+
+        // If the article has images
+        if (!empty($pkgRowImg) && $pkgRowImg != "a:0:{}") {
+
+            $imageList = unserialize($pkgRowImg);
+            $imgno = array_rand($imageList);
+
+            $file_path = SITE_ROOT . 'images/package/banner/' . $imageList[$imgno];
+
+            if (file_exists($file_path)) {
+                $imglink = IMAGE_PATH . 'package/banner/' . $imageList[$imgno];
             }
         }
 
@@ -157,15 +175,30 @@ if (defined('PACKAGE_PAGE') and isset($_REQUEST['slug'])) {
         }
     } elseif ($pkgRow->id == 8) {
 
-        $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
         $pkgRowImg = $pkgRow->banner_image;
-        if ($pkgRowImg != "a:0:{}") {
-            $pkgRowList = unserialize($pkgRowImg);
-            $file_path = SITE_ROOT . 'images/package/banner/' . $pkgRowList[0];
-            if (file_exists($file_path) and !empty($pkgRowList[0])) {
-                $imglink = IMAGE_PATH . 'package/banner/' . $pkgRowList[0];
-            } else {
-                $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+
+
+        // new code
+        if (!empty($siteRegulars->other_upload)) {
+            $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+        } else {
+            $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+            ;
+        }
+
+        // Start with default banner
+        $imglink = $defaultImg;
+
+        // If the article has images
+        if (!empty($pkgRowImg) && $pkgRowImg != "a:0:{}") {
+
+            $imageList = unserialize($pkgRowImg);
+            $imgno = array_rand($imageList);
+
+            $file_path = SITE_ROOT . 'images/package/banner/' . $imageList[$imgno];
+
+            if (file_exists($file_path)) {
+                $imglink = IMAGE_PATH . 'package/banner/' . $imageList[$imgno];
             }
         }
 
@@ -246,13 +279,27 @@ if (defined('PACKAGE_PAGE') and isset($_REQUEST['slug'])) {
     } else {
         $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
         $pkgRowImg = $pkgRow->banner_image;
-        if ($pkgRowImg != "a:0:{}") {
-            $pkgRowList = unserialize($pkgRowImg);
-            $file_path = SITE_ROOT . 'images/package/banner/' . $pkgRowList[0];
-            if (file_exists($file_path) and !empty($pkgRowList[0])) {
-                $imglink = IMAGE_PATH . 'package/banner/' . $pkgRowList[0];
-            } else {
-                $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+        // new code
+        if (!empty($siteRegulars->other_upload)) {
+            $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+        } else {
+            $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+            ;
+        }
+
+        // Start with default banner
+        $imglink = $defaultImg;
+
+        // If the article has images
+        if (!empty($pkgRowImg) && $pkgRowImg != "a:0:{}") {
+
+            $imageList = unserialize($pkgRowImg);
+            $imgno = array_rand($imageList);
+
+            $file_path = SITE_ROOT . 'images/package/banner/' . $imageList[$imgno];
+
+            if (file_exists($file_path)) {
+                $imglink = IMAGE_PATH . 'package/banner/' . $imageList[$imgno];
             }
         }
         $roombread .= '
@@ -495,18 +542,19 @@ if (defined('HOME_PAGE')) {
                         <div class="row">
                             <div class="content-column col-lg-4 col-md-6' . $image_column_order_class . '">
                                 <div class="inner-column wow fadeInLeft animated">
-                                    <span class="pricing-amount">' . $subpkgRow->currency . $subpkgRow->onep_price . '<span>/ Night</span></span>
-                                    <h3 class="pricing-title">' . $subpkgRow->title . '</h3>
+                                    <span class="pricing-amount">' . $subpkgRow->currency . $subpkgRow->onep_price . '<span>/ Night</span></span><a href="' . BASE_URL . $subpkgRow->slug . '"> 
+                                    <h3 class="pricing-title">' . $subpkgRow->title . '</h3></a>
                                     ' . $feature_list_html . '
                                     <div class="text">' . $subpkgRow->title . '</div>
                                     <div class="btn-box">
-                                        <a href="' . BASE_URL . $subpkgRow->slug . '" class="btn-style-four">Book Now</a>
+                                        <a href="#" class="btn-style-four">Book Now</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="image-column col-lg-8 col-md-6">
                                 <div class="image-box">
-                                    <figure class="image wow' . $image_reveal_class . '"><img src="' . $imagepath . '" alt="' . $subpkgRow->title . '"></figure>
+                                <a href=' . BASE_URL . $subpkgRow->slug . '>
+                                    <figure class="image wow' . $image_reveal_class . '"><img src="' . $imagepath . '" alt="' . $subpkgRow->title . '"></figure></a>
                                 </div>
                             </div>
                         </div>
@@ -569,25 +617,30 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
         // pr($pkhdata);
         if ($pkhdata->type == 1) {
             $relPacs = Subpackage::get_relatedpkg(1, $subpkgRec->id, 12);
-            $imglink = '';
-            $img = $subpkgRec->image;
+
+
             $content = explode('<hr id="system_readmore" style="border-style: dashed; border-color: orange;" />', trim($subpkgRec->content));
 
-            if (!empty($img) && $img != 'a:0:{}') {
-                $img1 = @unserialize($img); // @ to suppress warnings if corrupt
-                if ($img1 !== false && isset($img1[0]) && !empty($img1[0])) {
-                    $file_path = SITE_ROOT . 'images/subpackage/' . $img1[0];
-                    if (file_exists($file_path)) {
-                        $imglink = IMAGE_PATH . 'subpackage/' . $img1[0];
-                    } else {
-                        $imglink = IMAGE_PATH . 'static/default-art-pac-sub.jpg';
-                    }
-                } else {
-                    $imglink = IMAGE_PATH . 'static/default-art-pac-sub.jpg';
-                }
+            // new code
+            $imglink = '';
+            $img = $subpkgRec->image2;
+            if (!empty($siteRegulars->other_upload)) {
+                $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
             } else {
-                $imglink = IMAGE_PATH . 'static/default-art-pac-sub.jpg';
+                $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+                ;
             }
+            // Start with default banner
+            $imglink = $defaultImg;
+            // If the article has images
+            if (!empty($img) && $img != "a:0:{}") {
+                $file_path = SITE_ROOT . 'images/subpackage/image/' . $img;
+                if (file_exists($file_path)) {
+                    $imglink = IMAGE_PATH . 'subpackage/image/' . $img;
+                }
+            }
+
+
 
 
             $pkgRec = Package::find_by_id($subpkgRec->type);
@@ -613,6 +666,7 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
             }
 
 
+
             $roombread .= '
         <section class="page-title" style="background-image: url(' . $imglink . '">
             <div class="auto-container">
@@ -622,6 +676,7 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
             </div>
         </section>
 ';
+
 
 
             $resubpkgDetail1 .= '
@@ -757,18 +812,21 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
 
                     $otherroom .= '
                                     <li>
-                                        <div class="sidebar__post-image"> <img src="' . $imglink . '"
-                                                alt=""> </div>
+                                        <div class="sidebar__post-image"> <a
+                                                    href="' . BASE_URL . $room->slug . '"><img src="' . $imglink . '"
+                                                alt=""></a> </div>
                                         <div class="sidebar__post-content">
-                                            <h3> <span class="sidebar__post-content-meta"><i
-                                                        class="fas fa-door-open"></i>' . $room->title . '</span> <a
-                                                    href="' . BASE_URL . $room->slug . '">' . $room->onep_price . $room->currency . ' /Night</a>
+                                            <h3> <span class="sidebar__post-content-meta"><a
+                                                    href="' . BASE_URL . $room->slug . '"><i
+                                                        class="fas fa-door-open"></i>' . $room->title . '</a></span> ' . $room->onep_price . $room->currency . ' /Night
                                             </h3>
                                         </div>
                                     </li>
                                     ';
 
+
                 }
+
                 // pr($otherroom);
                 $resubpkgDetail .= '
                         <section class="blog-details pt-120 pb-120">
@@ -787,6 +845,7 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
                             
                         </div>
                     </div>
+                    
                     <div class="col-xl-4 col-lg-5">
                         <div class="sidebar">
                             <div class="sidebar__post mb-30">
@@ -795,15 +854,15 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
                                         <div class="col-sm-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Check In</label>
-                                                <input name="form_name" class="form-control bg-white" type="text"
-                                                    placeholder="Arrive Date">
+                                                <input id="check_in" name="check_in" class="form-control bg-white" type="text" required>
+
+
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Check Out</label>
-                                                <input name="form_name" class="form-control bg-white" type="text"
-                                                    placeholder="Departure Date">
+                                                <input id="check_out" name="check_out" class="form-control bg-white" type="text" required>
                                             </div>
                                         </div>
                                     </div>
@@ -814,6 +873,8 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
                                                 Now</span></button>
                                     </div>
                                 </form>
+
+                                
                             </div>
                             <div class="sidebar__single sidebar__post">
                                 <h3 class="sidebar__title">Compare Room</h3>
@@ -833,13 +894,26 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
 
         } /******** For service inner page ***************/ elseif ($subpkgRec->type == 6) {
             $relPacs = Subpackage::get_relatedpkg(1, $subpkgRec->id, 12);
-            $imglink = IMAGE_PATH . 'static/default.jpg';
-            if (!empty($subpkgRec->image2)) {
-                $file_path = SITE_ROOT . 'images/subpackage/image/' . $subpkgRec->image2;
+            // new code
+            $imglink = '';
+            $img = $subpkgRec->image2;
+            if (!empty($siteRegulars->other_upload)) {
+                $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+            } else {
+                $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+                ;
+            }
+            // Start with default banner
+            $imglink = $defaultImg;
+            // If the article has images
+            if (!empty($img) && $img != "a:0:{}") {
+                $file_path = SITE_ROOT . 'images/subpackage/image/' . $img;
                 if (file_exists($file_path)) {
-                    $imglink = IMAGE_PATH . 'subpackage/image/' . $subpkgRec->image2;
+                    $imglink = IMAGE_PATH . 'subpackage/image/' . $img;
                 }
             }
+
+
             $gallRec = SubPackageImage::getImagelist_by($subpkgRec->id);
             $subpkg_carousel = '';
             if (!empty($gallRec)) {
@@ -1005,17 +1079,25 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
 
         } /******** For other inner page ***************/ elseif ($subpkgRec->type == 8) {
             $relPacs = Subpackage::get_relatedpkg(1, $subpkgRec->id, 12);
+            // new code
             $imglink = '';
-            if (!empty($subpkgRec->image2)) {
-                $file_path = SITE_ROOT . 'images/subpackage/image/' . $subpkgRec->image2;
-                if (file_exists($file_path)) {
-                    $imglink = IMAGE_PATH . 'subpackage/image/' . $subpkgRec->image2;
-                } else {
-                    $imglink = IMAGE_PATH . 'static/default.jpg';
-                }
+            $img = $subpkgRec->image2;
+            if (!empty($siteRegulars->other_upload)) {
+                $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
             } else {
-                $imglink = IMAGE_PATH . 'static/default.jpg';
+                $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+                ;
             }
+            // Start with default banner
+            $imglink = $defaultImg;
+            // If the article has images
+            if (!empty($img) && $img != "a:0:{}") {
+                $file_path = SITE_ROOT . 'images/subpackage/image/' . $img;
+                if (file_exists($file_path)) {
+                    $imglink = IMAGE_PATH . 'subpackage/image/' . $img;
+                }
+            }
+
             $gallRec = SubPackageImage::getImagelist_by($subpkgRec->id);
             $subpkg_carousel = '';
             if (!empty($gallRec)) {
@@ -1182,10 +1264,24 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
         } /******** For other other inner page ***************/ else {
             $relPacs = Subpackage::get_relatedpkg(1, $subpkgRec->id, 12);
 
-            $file_path = !empty($subpkgRec->image2) ? SITE_ROOT . 'images/subpackage/image/' . $subpkgRec->image2 : '';
-            $imglink = (!empty($subpkgRec->image2) && file_exists($file_path))
-                ? IMAGE_PATH . 'subpackage/image/' . $subpkgRec->image2
-                : IMAGE_PATH . 'static/default.jpg';
+            // new code
+            $imglink = '';
+            $img = $subpkgRec->image2;
+            if (!empty($siteRegulars->other_upload)) {
+                $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+            } else {
+                $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+                ;
+            }
+            // Start with default banner
+            $imglink = $defaultImg;
+            // If the article has images
+            if (!empty($img) && $img != "a:0:{}") {
+                $file_path = SITE_ROOT . 'images/subpackage/image/' . $img;
+                if (file_exists($file_path)) {
+                    $imglink = IMAGE_PATH . 'subpackage/image/' . $img;
+                }
+            }
 
             $gallRec = SubPackageImage::getImagelist_by($subpkgRec->id);
             $subpkg_carousel = '';

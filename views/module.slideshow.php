@@ -14,11 +14,12 @@ if (!empty($Recordvideo)) {
     if ($Records) {
         foreach ($Records as $RecRow) {
             $splitSRC = explode("http://", $RecRow->linksrc);
-            $linkTarget = ($RecRow->linktype == 1) ? ' target="_blank" rel="noreferrer" ' : '';
+            $linkTarget = ($RecRow->linktype == 1) ? ' target="_blank"  ' : '';
             $linksrc = (count($splitSRC) == 1) ? BASE_URL . $RecRow->linksrc : $RecRow->linksrc;
-            $linkstart = ($RecRow->linksrc != '') ? '<a href="' . $linksrc . '" ' . $linkTarget . ' class="btn book_now_btn" >' : '<a href="javascript:void(0);" class="btn book_now_btn" >';
+            $linkstart = ($RecRow->linksrc != '') ? ' <a href="' . $linksrc . '" ' . $linkTarget . '" class="btn" data-animation-in="fadeInUp" data-delay-in="0.5">rooms & suites</a>' : '<a href="javascript:void(0);" class="btn book_now_btn" >rooms & suites';
             $linkend = ($RecRow->linksrc != '') ? '</a>' : '</a>';
             $file_path = SITE_ROOT . 'images/slideshow/' . $RecRow->image;
+            // pr($RecRow->linktype);
             if (file_exists($file_path) and !empty($RecRow->image)) {
                 $mainslides .= '
 
@@ -28,8 +29,8 @@ if (!empty($Recordvideo)) {
                         src="' . IMAGE_PATH . 'slideshow/' . $RecRow->image . '" alt=""></figure>
                     <div class="content-box">
                     <span class="sub-title" data-animation-in="fadeInUp" data-delay-in="0.1">' . $RecRow->title . '</span>
-                    <h1 data-animation-in="fadeInUp" data-delay-in="0.3">' . $RecRow->content . '</h1>
-                    <a href="' . BASE_URL . 'rooms-suites" class="btn" data-animation-in="fadeInUp" data-delay-in="0.5">rooms & suites</a>
+                    <h1 data-animation-in="fadeInUp" data-delay-in="0.3">' . $RecRow->title . '</h1>
+                   ' . $linkstart . $linkend . '
                     </div>
                 </div>
                 </div>

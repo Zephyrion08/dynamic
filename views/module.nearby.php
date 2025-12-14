@@ -8,7 +8,7 @@ if (defined('HOME_PAGE')) {
     // --- START: LIMIT TO 3 RECORDS ---
     if (!empty($recRows)) {
         // Only keep the first 3 records in the array
-        $recRows = array_slice($recRows, 0, 3);
+        // $recRows = array_slice($recRows, 0, 3);
     }
     // --- END: LIMIT TO 3 RECORDS ---
 
@@ -24,7 +24,6 @@ if (defined('HOME_PAGE')) {
             }
 
             // --- Image Path Logic ---
-            $imglink = 'images/resource/default-news.jpg'; // Default placeholder
             $wow_delay = $k * 300; // Calculate delay: 0ms, 300ms, 600ms, etc.
 
             if ($recRow->image != "a:0:{}") {
@@ -37,13 +36,34 @@ if (defined('HOME_PAGE')) {
                 }
             }
 
+            // new code
+            $imglink = '';
+            $img = $recRow->image;
+            if (!empty($siteRegulars->other_upload)) {
+                $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+            } else {
+                $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+                ;
+            }
+            // Start with default banner
+            $imglink = $defaultImg;
+            // If the article has images
+            if (!empty($img) && $img != "a:0:{}") {
+                $imageList = unserialize($img);
+
+                $file_path = SITE_ROOT . 'images/nearby/' . $imageList[0];
+                if (file_exists($file_path)) {
+                    $imglink = IMAGE_PATH . 'nearby/' . $imageList[0];
+                }
+            }
+
             // --- Dynamic News Block HTML ---
             $news_blocks_html .= '
                 <div class="news-block-four col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="' . $wow_delay . 'ms">
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image">
-                                <a href="' . $recRow->google_embeded . '">
+                                <a href="' . $recRow->google_embeded . '"target = " _blank">
                                     <img src="' . $imglink . '" alt="' . $recRow->title . '">
                                     <img src="' . $imglink . '" alt="' . $recRow->title . '">
                                 </a>

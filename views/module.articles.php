@@ -70,18 +70,34 @@ if (defined('INNER_PAGE') and isset($_REQUEST['slug'])) {
     // pr($recRow);
 
     if (!empty($recRow)) {
+        // pr(SITE_ROOT . 'preference/other/' . $siteRegulars->other_upload);
 
-        $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
-        if ($recRow->image != "a:0:{}") {
+
+        if (!empty($siteRegulars->other_upload)) {
+            $defaultImg = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+        } else {
+            $defaultImg = BASE_URL . 'template/web/images/background/page-title-bg.png';
+            ;
+        }
+
+        // Start with default banner
+        $imglink = $defaultImg;
+
+        // If the article has images
+        if (!empty($recRow->image) && $recRow->image != "a:0:{}") {
+
             $imageList = unserialize($recRow->image);
             $imgno = array_rand($imageList);
+
             $file_path = SITE_ROOT . 'images/articles/' . $imageList[$imgno];
+
             if (file_exists($file_path)) {
                 $imglink = IMAGE_PATH . 'articles/' . $imageList[$imgno];
-            } else {
-                $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
             }
         }
+
+
+
 
         $innerbred .= '
 

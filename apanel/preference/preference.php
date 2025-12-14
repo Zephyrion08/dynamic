@@ -677,7 +677,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
@@ -719,7 +719,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
@@ -761,7 +761,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
@@ -803,7 +803,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
@@ -845,7 +845,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
@@ -887,7 +887,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
@@ -927,7 +927,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
@@ -968,7 +968,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
@@ -1009,7 +1009,7 @@ $notupcoming = ($PrefeRow->upcoming == 0) ? "checked" : " ";
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 1,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/

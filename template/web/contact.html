@@ -78,18 +78,18 @@
         errorElement: 'span',
         errorClass: 'validate-has-error text-danger',
         rules: {
-          form_name: { required: true },
-          form_phone: { required: true, number: true },
-          form_subject: { required: true },
-          form_email: { required: true, email: true },
-          form_message: { required: true }
+          name: { required: true },
+          phone: { required: true, number: true },
+          address: { required: true },
+          email: { required: true, email: true },
+          message: { required: true }
         },
         messages: {
-          form_name: { required: "Please Enter Full Name." },
-          form_phone: { required: "Please Enter Phone Number." },
-          form_subject: { required: "Please Enter Address." },
-          form_email: { required: "Please Enter Email Address." },
-          form_message: { required: "Please Enter Message." }
+          name: { required: "Please Enter Full Name." },
+          phone: { required: "Please Enter Phone Number." },
+          address: { required: "Please Enter Address." },
+          email: { required: "Please Enter Email Address." },
+          message: { required: "Please Enter Message." }
         },
         submitHandler: function (form) {
           

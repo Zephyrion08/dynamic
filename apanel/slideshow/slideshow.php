@@ -305,7 +305,7 @@ if (isset($_GET['page']) && $_GET['page'] == "slideshow" && isset($_GET['mode'])
                 
                 <?php }?>
 
-                <div class="form-row hide">
+                <div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">
                             Link Type :
@@ -321,7 +321,7 @@ if (isset($_GET['page']) && $_GET['page'] == "slideshow" && isset($_GET['mode'])
                     </div>
                 </div>
 
-                <div class="form-row hide">
+                <div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">
                             Link :

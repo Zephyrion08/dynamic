@@ -66,6 +66,7 @@ if (isset($_GET['page']) && $_GET['page'] == "testimonial" && isset($_GET['mode'
                                title="Remove" onclick="recordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
                             </a>
+                             <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
                         </td>
                     </tr>
                 <?php endforeach; ?>

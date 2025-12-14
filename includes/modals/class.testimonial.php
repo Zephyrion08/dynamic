@@ -4,7 +4,7 @@ class Testimonial extends DatabaseObject
 {
 
     protected static $table_name = "tbl_testimonial";
-    protected static $db_fields = array('id', 'parentOf', 'name', 'content', 'rating', 'status', 'sortorder', 'image', 'linksrc', 'country', 'via_type', 'type');
+    protected static $db_fields = array('id', 'parentOf', 'name', 'content', 'rating', 'status', 'sortorder', 'image', 'linksrc', 'country', 'via_type', 'type', 'title');
 
     public $id;
     public $parentOf;
@@ -18,6 +18,7 @@ class Testimonial extends DatabaseObject
     public $country;
     public $via_type;
     public $type;
+    public $title;
 
 
     //GET ALL Testimonial

@@ -76,10 +76,15 @@ $jVars['module:dining-gallery'] = $dininggallery;
 $gallerybread = '';
 $siteRegulars = Config::find_by_id(1);
 $imglink = $siteRegulars->gallery_upload;
+
+// pr($imglink);
 if (!empty($imglink)) {
     $img = IMAGE_PATH . 'preference/gallery/' . $siteRegulars->gallery_upload;
-} else {
+} elseif (!empty($siteRegulars->other_upload)) {
     $img = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+} else {
+    $img = BASE_URL . 'template/web/images/background/page-title-bg.png';
+
 }
 
 $gallerybread = '
