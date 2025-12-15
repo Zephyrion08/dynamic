@@ -141,7 +141,8 @@ if (isset($_GET['page']) && $_GET['page'] == "features" && isset($_GET['mode']) 
                     </div>
                     <div class="form-input col-md-4">
                         <?php $Parentview = !empty($featuresInfo->parentId) ? $featuresInfo->parentId : 0;
-                        echo Features::get_parentList_bylevel(1, $Parentview); ?>
+                        $iD = !empty($featuresInfo->id) ? $featuresInfo->id : 0;
+                        echo Features::get_parentList_bylevel(1, $Parentview, $iD); ?>
                     </div>
                 </div>
                 <div class="form-row">

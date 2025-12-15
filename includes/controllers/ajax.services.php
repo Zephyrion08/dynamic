@@ -17,7 +17,7 @@
 			
 			$record->slug 			= create_slug($_REQUEST['title']);
 			$record->title 			= $_REQUEST['title'];
-			$record->sub_title 			= $_REQUEST['sub_title'];
+			// $record->sub_title 			= $_REQUEST['sub_title'];
 			$record->image			= !empty($_REQUEST['imageArrayname'])? serialize(array_values(array_filter($_REQUEST['imageArrayname']))):'';
 			$record->icon		= !empty($_REQUEST['icon'])?$_REQUEST['icon']:'';
 			$record->linksrc 	= !empty($_REQUEST['linksrc'])?$_REQUEST['linksrc']:''; 
@@ -64,7 +64,7 @@
 		
 		$record->slug 			= create_slug($_REQUEST['title']);
 		$record->title 			= $_REQUEST['title'];
-		$record->sub_title 			= !empty($_REQUEST['sub_title'])?$_REQUEST['sub_title']:'';  
+		// $record->sub_title 			= !empty($_REQUEST['sub_title'])?$_REQUEST['sub_title']:'';  
 		$record->image			= !empty($_REQUEST['imageArrayname'])? serialize(array_values(array_filter($_REQUEST['imageArrayname']))):'';
 		$record->icon		= !empty($_REQUEST['icon'])?$_REQUEST['icon']:'';
 			$record->brief		= !empty($_REQUEST['brief'])?$_REQUEST['brief']:'';  	

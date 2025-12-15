@@ -35,7 +35,7 @@ class Features extends DatabaseObject
     }
 
     /************************** multi level menu by me ***************************/
-    public static function get_parentList_bylevel($level = 1, $selid = 0)
+    public static function get_parentList_bylevel($level = 1, $selid = 0, $excludeId = 0)
     {
         global $db;
         $sql1 = "SELECT id,title FROM " . self::$table_name . " WHERE parentId='0' ORDER BY sortorder ASC";
@@ -47,6 +47,8 @@ class Features extends DatabaseObject
         /******** First level ********/
         if ($prodtRec1):
             foreach ($prodtRec1 as $prodtRow1):
+                if ($prodtRow1->id == $excludeId)
+                    continue;
                 $sel1 = ($selid == $prodtRow1->id) ? 'selected' : '';
                 $result .= '<option value="' . $prodtRow1->id . '" ' . $sel1 . '>' . $prodtRow1->title . '</option>';
                 /******** Second level ********/
@@ -55,6 +57,8 @@ class Features extends DatabaseObject
                     $prodtRec2 = self::find_by_sql($sql2);
                     if ($prodtRec2):
                         foreach ($prodtRec2 as $prodtRow2):
+                            if ($prodtRow2->id == $excludeId)
+                                continue;
                             $sel2 = ($selid == $prodtRow2->id) ? 'selected' : '';
                             $result .= '<option value="' . $prodtRow2->id . '" ' . $sel2 . '>&nbsp;&nbsp;- ' . $prodtRow2->title . '</option>';
                             /******** Third level ********/
@@ -63,6 +67,8 @@ class Features extends DatabaseObject
                                 $prodtRec3 = self::find_by_sql($sql3);
                                 if ($prodtRec3):
                                     foreach ($prodtRec3 as $prodtRow3):
+                                        if ($prodtRow3->id == $excludeId)
+                                            continue;
                                         $sel3 = ($selid == $prodtRow3->id) ? 'selected' : '';
                                         $result .= '<option value="' . $prodtRow3->id . '" ' . $sel3 . '>&nbsp;&nbsp;&nbsp;&nbsp;- ' . $prodtRow3->title . '</option>';
                                         /******** Fourth level ********/
@@ -71,6 +77,8 @@ class Features extends DatabaseObject
                                             $prodtRec4 = self::find_by_sql($sql4);
                                             if ($prodtRec4):
                                                 foreach ($prodtRec4 as $prodtRow4):
+                                                    if ($prodtRow4->id == $excludeId)
+                                                        continue;
                                                     $sel4 = ($selid == $prodtRow4->id) ? 'selected' : '';
                                                     $result .= '<option value="' . $prodtRow4->id . '" ' . $sel4 . '>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ' . $prodtRow4->title . '</option>';
                                                     /******** Fifth level ********/
@@ -79,6 +87,8 @@ class Features extends DatabaseObject
                                                         $prodtRec5 = self::find_by_sql($sql5);
                                                         if ($prodtRec5):
                                                             foreach ($prodtRec5 as $prodtRow5):
+                                                                if ($prodtRow5->id == $excludeId)
+                                                                    continue;
                                                                 $sel5 = ($selid == $prodtRow5->id) ? 'selected' : '';
                                                                 $result .= '<option value="' . $prodtRow5->id . '" ' . $sel5 . '>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ' . $prodtRow5->title . '</option>';
                                                             endforeach;

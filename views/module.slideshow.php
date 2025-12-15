@@ -15,8 +15,8 @@ if (!empty($Recordvideo)) {
         foreach ($Records as $RecRow) {
             $splitSRC = explode("http://", $RecRow->linksrc);
             $linkTarget = ($RecRow->linktype == 1) ? ' target="_blank"  ' : '';
-            $linksrc = (count($splitSRC) == 1) ? BASE_URL . $RecRow->linksrc : $RecRow->linksrc;
-            $linkstart = ($RecRow->linksrc != '') ? ' <a href="' . $linksrc . '" ' . $linkTarget . '" class="btn" data-animation-in="fadeInUp" data-delay-in="0.5">rooms & suites</a>' : '<a href="javascript:void(0);" class="btn book_now_btn" >rooms & suites';
+            $linksrc = (count($splitSRC) == 1) ? $RecRow->linksrc : $RecRow->linksrc;
+            $linkstart = ($RecRow->linksrc != '') ? ' <a href="' . $linksrc . '" ' . $linkTarget . '" class="btn" data-animation-in="fadeInUp" data-delay-in="0.5">rooms & suites' : '';
             $linkend = ($RecRow->linksrc != '') ? '</a>' : '</a>';
             $file_path = SITE_ROOT . 'images/slideshow/' . $RecRow->image;
             // pr($RecRow->linktype);

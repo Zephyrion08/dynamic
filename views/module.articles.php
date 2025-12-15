@@ -114,94 +114,10 @@ if (defined('INNER_PAGE') and isset($_REQUEST['slug'])) {
         $rescontent = explode('<hr id="system_readmore" style="border-style: dashed; border-color: orange;" />', trim($recRow->content));
         $content = !empty($rescontent[1]) ? $rescontent[1] : $rescontent[0];
 
-        $aboutdetail .=
-            '  <section class="about section-padding" data-scroll-index="1">
-        <div class="container">
+        $aboutdetail .= '
+
                     ' . $content . ' 
-                     </div>
-            </section>';
-        if ($recRow->id == 1712312312) {
-            $aboutdetail .= '
-            <section class="ul-features ul-section-spacing">
-                <div class="ul-inner-page-container">
-                    <div class="ul-features-content wow animate__fadeInUp">
-                        <div class="row ul-bs-row">
-                            <!-- section heading -->
-                            <div class="col-lg-3">
-                                <div class="ul-section-heading ul-features-heading">
-                                    <div>
-                                        <span class="ul-section-sub-title">Facilities</span>
-                                        <h2 class="ul-section-title">Top Features</h2>
-                                    </div>
-
-                                    <!-- vector -->
-                                    <img src="' . BASE_URL . 'template/web/assets/img/features-vector.svg" alt="vector" class="vector wow animate__fadeInLeft">
-                                </div>
-                            </div>
-
-                            <!-- features -->
-                            <div class="col-lg-9">
-                                <div class="ul-features-slider swiper">
-                                    <div class="swiper-wrapper">';
-            $record = Services::getservice_list(6);
-            if (!empty($record)) {
-                foreach ($record as $service) {
-                    $img = unserialize($recRow->image);
-                    $file_path = SITE_ROOT . 'images/services/' . $img[0];
-                    if (file_exists($file_path) && $img[0] != NULL) {
-                        $imglink = IMAGE_PATH . 'services/' . $img[0];
-                        $aboutdetail .= '
-                                            
-                                            <!-- High-speed Internet -->
-                                            <div class="swiper-slide">
-                                            <div class="ul-feature">
-                                            <div class="ul-feature-icon">
-                                            <img src="' . $imglink . '" alt="' . $recRow->title . '">
-                                            </div>
-                                            <div class="ul-feature-txt">
-                                            <h3 class="ul-feature-title">' . $service->title . '</h3>
-                                            </div>
-                                            </div>
-                                            </div>';
-
-                    } else {
-
-                        $aboutdetail .= '
-                    
-                    <!-- High-speed Internet -->
-                    <div class="swiper-slide">
-                    <div class="ul-feature">
-                    <div class="ul-feature-icon">
-                    <i class="' . $service->icon . '"></i>
-                    </div>
-                    <div class="ul-feature-txt">
-                    <h3 class="ul-feature-title">' . $service->title . '</h3>
-                    </div>
-                    </div>
-                    </div>';
-                    }
-                }
-            }
-            $aboutdetail .= '
-
-                                    </div>
-                                </div>
-
-                                <div class="ul-slider-action-wrapper ul-features-slider-action-wrapper">
-                                    <button class="ul-features-slider-prev">Previous</button>
-                                    <div class="ul-slider-pagination-progress ul-features-slider-pagination flex-shrink-0"></div>
-                                    <button class="ul-features-slider-next">Next</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </section>';
-        }
-
-    } else {
-        redirect_to(BASE_URL);
+                    ';
     }
 }
 

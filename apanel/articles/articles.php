@@ -62,10 +62,12 @@ if (isset($_GET['page']) && $_GET['page'] == "articles" && isset($_GET['mode']) 
                                data-placement="top" title="Edit" onclick="editRecord(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-edit"></i>
                             </a>
-                            <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
-                               title="Remove" onclick="recordDelete(<?php echo $record->id; ?>);">
+                        <?php if ($record->id != 21): ?>
+                            <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top" title="Remove"
+                                onclick="recordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
                             </a>
+                        <?php endif; ?>
                             <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
                         </td>
                     </tr>

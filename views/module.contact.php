@@ -53,11 +53,16 @@ if (defined('CONTACT_PAGE')) {
     }
   }
   $imglink = $siteRegulars->contact_upload;
+
+
   if (!empty($imglink)) {
     $img = IMAGE_PATH . 'preference/contact/' . $siteRegulars->contact_upload;
-  } else {
+  } elseif (!empty($siteRegulars->other_upload)) {
     $img = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+  } else {
+    $img = BASE_URL . 'template/web/images/background/page-title-bg.png';
   }
+
   // pr($siteRegulars);
   $nearbydetail = '';
   $recRows = Nearby::find_all_active();
@@ -150,6 +155,7 @@ if (defined('CONTACT_PAGE')) {
                 <button type="submit" id="submit" class="theme-btn btn-style-one" data-loading-text="Please wait..."><span
                     class="btn-title">Send message</span></button>
               </div>
+              <div id="result_msg"></div>
             </form>
             <!-- Contact Form Validation-->
           </div>

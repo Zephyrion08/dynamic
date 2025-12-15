@@ -545,7 +545,7 @@ if (defined('HOME_PAGE')) {
                                     <span class="pricing-amount">' . $subpkgRow->currency . $subpkgRow->onep_price . '<span>/ Night</span></span><a href="' . BASE_URL . $subpkgRow->slug . '"> 
                                     <h3 class="pricing-title">' . $subpkgRow->title . '</h3></a>
                                     ' . $feature_list_html . '
-                                    <div class="text">' . $subpkgRow->title . '</div>
+                                    <div class="text">' . $subpkgRow->detail . '</div>
                                     <div class="btn-box">
                                         <a href="#" class="btn-style-four">Book Now</a>
                                     </div>
@@ -945,7 +945,7 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
 
             $resubpkgDetail1 .= '
                             <div class="wrapper">
-                                <h3>Our Hall</h3>
+                                <h3>' . $subpkgRec->title . '</h3>
                                 <p class="text">' . $subpkgRec->content . '</p>
 
                                 <h4>Table Format</h4>
@@ -1303,7 +1303,7 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
             }
 
             $roombread .= '
-        <section class="page-title" style="background-image: url(' . $imglink . '">
+        <section class="page-title" style="background-image: url(' . $imglink . ')">
             <div class="auto-container">
                 <div class="title-outer text-center">
                     <h1 class="title">' . $subpkgRec->title . '</h1>
@@ -1313,9 +1313,9 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
 ';
             $resubpkgDetail1 .= '
                             <div class="wrapper">
-                                <h3>Our Hall</h3>
-                                <p class="text">' . $subpkgRec->content . '</p>
-                                <p class="text">' . $subpkgRec->detail . '</p>
+                                <h3>' . $subpkgRec->title . '</h3>
+                                ' . $subpkgRec->content . '
+                                ' . $subpkgRec->detail . '
                             </div>
 
             ';
@@ -1335,7 +1335,7 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
                             </div>
                             <div class="room-details__left">
                             ' . $resubpkgDetail1 . '
-                            ' . $resubpkgDetail2 . '
+                            
                             </div>
                         </div>
                     </div>

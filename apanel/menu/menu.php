@@ -141,7 +141,8 @@ if (isset($_GET['page']) && $_GET['page'] == "menu" && isset($_GET['mode']) && $
                     <div class="form-input col-md-4">
                         <?php
                         $Parentview = !empty($menu->parentOf) ? $menu->parentOf : 0;
-                        echo Menu::get_parentList_bylevel($menuLevel, $Parentview);
+                        $iD = !empty($menu->id) ? $menu->id : 0;
+                        echo Menu::get_parentList_bylevel($menuLevel, $Parentview, $iD);
                         ?>
                     </div>
                 </div>
@@ -214,8 +215,9 @@ if (isset($_GET['page']) && $_GET['page'] == "menu" && isset($_GET['mode']) && $
                         </label>
                     </div>
                     <div class="form-checkbox-radio col-md-9">
+                        <?php $saved_src = !empty($menu->linksrc) ? $menu->linksrc : ""; ?>
                         <input id="" class="custom-radio" type="radio" name="linktype" value="0"
-                            onClick="linkTypeSelect(0);" <?php echo !empty($internal) ? $internal : "checked"; ?>>
+                            onClick="linkTypeSelect(0,'<?= $saved_src ?>');" <?php echo !empty($internal) ? $internal : "checked"; ?>>
                         <label for="">Internal Link</label>
                         <input id="" class="custom-radio" type="radio" name="linktype" value="1"
                             onClick="linkTypeSelect(1);" <?php echo !empty($external) ? $external : ""; ?>>
@@ -230,9 +232,11 @@ if (isset($_GET['page']) && $_GET['page'] == "menu" && isset($_GET['mode']) && $
                     </div>
                     <div class="form-input col-md-8">
                         <div class="col-md-4" style="padding-left:0px !important;">
-                            <input placeholder="Menu Link" class="validate[required,length[0,50]]" type="text"
+                            <input placeholder="Menu Link" class="validate[required,length[0,50]] savedLinkType" type="text"
                                 name="linksrc" id="linksrc"
                                 value="<?php echo !empty($menu->linksrc) ? $menu->linksrc : ""; ?>">
+
+
                         </div>
                         <div class="col-md-6" style="padding-left:0px !important;">
                             <select data-placeholder="Select Link Page" class="col-md-4 chosen-select" id="linkPage">

@@ -1,4 +1,4 @@
-<link href="<?php echo ASSETS_PATH; ?>uploadify/uploadify.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo ASSETS_PATH; ?>uploadify/uploadify.css" rel="stylesheet" type="text/css" />
 <?php
 $moduleTablename = "tbl_social_networking"; // Database table name
 $moduleId = 11;                // module id >>>>> tbl_modules
@@ -26,9 +26,9 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
         }
         ?>
         <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);" onClick="AddNewSocial();">
-    <span class="glyph-icon icon-separator">
-        <i class="glyph-icon icon-plus-square"></i>
-    </span>
+            <span class="glyph-icon icon-separator">
+                <i class="glyph-icon icon-plus-square"></i>
+            </span>
             <span class="button-content"> Add New </span>
         </a>
     </h3>
@@ -37,58 +37,61 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
         <div class="example-code">
             <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
                 <thead>
-                <tr>
-                    <th class="text-center">S.No.</th>
-                    <th>Icon</th>
-                    <th class="text-center">Link</th>
-                    <th class="text-center"><?php echo $GLOBALS['basic']['action']; ?></th>
-                </tr>
+                    <tr>
+                        <th class="text-center">S.No.</th>
+                        <th>Icon</th>
+                        <th class="text-center">Link</th>
+                        <th class="text-center"><?php echo $GLOBALS['basic']['action']; ?></th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                <?php $records = SocialNetworking::find_by_sql("SELECT * FROM " . $moduleTablename . " WHERE type=$typeid ORDER BY sortorder ASC ");
-                foreach ($records as $record): ?>
-                    <tr id="<?php echo $record->id; ?>">
-                        <td class="text-center"><?php echo $record->sortorder; ?></td>
-                        <td>
-                            <div class="col-md-1">
-                                <?php if (!empty($record->image)){ ?>
-                                <a href="javascript:void(0);" onClick="editRecord(<?php echo $record->id; ?>);" class="loadingbar-demo btn small"
-                                   title="<?php echo $record->title; ?>">
-
-                                    <img src="<?php echo IMAGE_PATH; ?>social/<?php echo $record->image; ?>" alt="<?php echo $record->title; ?>" width="25">
-                                    <?php } else { ?>
+                    <?php $records = SocialNetworking::find_by_sql("SELECT * FROM " . $moduleTablename . " WHERE type=$typeid ORDER BY sortorder ASC ");
+                    foreach ($records as $record): ?>
+                        <tr id="<?php echo $record->id; ?>">
+                            <td class="text-center"><?php echo $record->sortorder; ?></td>
+                            <td>
+                                <div class="col-md-1">
+                                    <?php if (!empty($record->image)) { ?>
                                         <a href="javascript:void(0);" onClick="editRecord(<?php echo $record->id; ?>);"
-                                           class="loadingbar-demo" title="<?php echo $record->title; ?>">
-                                            <?php echo $record->title; ?>
-                                        </a>
-                                    <?php } ?>
+                                            class="loadingbar-demo btn small" title="<?php echo $record->title; ?>">
 
-                            </div>
-                        </td>
-                        <td><?php echo !empty($record->linksrc) ? $record->linksrc : ''; ?></td>
-                        <td class="text-center">
-                            <?php
-                            $statusImage = ($record->status == 1) ? "bg-green" : "bg-red";
-                            $statusText = ($record->status == 1) ? $GLOBALS['basic']['clickUnpub'] : $GLOBALS['basic']['clickPub'];
-                            ?>
-                            <a href="javascript:void(0);" class="btn small <?php echo $statusImage; ?> tooltip-button statusToggler" data-placement="top"
-                               title="<?php echo $statusText; ?>" status="<?php echo $record->status; ?>" id="imgHolder_<?php echo $record->id; ?>"
-                               moduleId="<?php echo $record->id; ?>">
-                                <i class="glyph-icon icon-flag"></i>
-                            </a>
-                            <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button" data-placement="top" title="Edit"
-                               onclick="editRecord(<?php echo $record->id; ?>);">
-                                <i class="glyph-icon icon-edit"></i>
-                            </a>
-                            <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top" title="Remove"
-                               onclick="recordDelete(<?php echo $record->id; ?>);">
-                                <i class="glyph-icon icon-remove"></i>
-                            </a>
-                            <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+                                            <img src="<?php echo IMAGE_PATH; ?>social/<?php echo $record->image; ?>"
+                                                alt="<?php echo $record->title; ?>" width="25">
+                                        <?php } else { ?>
+                                            <a href="javascript:void(0);" onClick="editRecord(<?php echo $record->id; ?>);"
+                                                class="loadingbar-demo" title="<?php echo $record->title; ?>">
+                                                <?php echo $record->title; ?>
+                                            </a>
+                                        <?php } ?>
+
+                                </div>
+                            </td>
+                            <td> <?php echo !empty($record->linksrc) ? substr($record->linksrc, 0, 50) : ''; ?> </td>
+                            <td class="text-center">
+                                <?php
+                                $statusImage = ($record->status == 1) ? "bg-green" : "bg-red";
+                                $statusText = ($record->status == 1) ? $GLOBALS['basic']['clickUnpub'] : $GLOBALS['basic']['clickPub'];
+                                ?>
+                                <a href="javascript:void(0);"
+                                    class="btn small <?php echo $statusImage; ?> tooltip-button statusToggler"
+                                    data-placement="top" title="<?php echo $statusText; ?>"
+                                    status="<?php echo $record->status; ?>" id="imgHolder_<?php echo $record->id; ?>"
+                                    moduleId="<?php echo $record->id; ?>">
+                                    <i class="glyph-icon icon-flag"></i>
+                                </a>
+                                <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
+                                    data-placement="top" title="Edit" onclick="editRecord(<?php echo $record->id; ?>);">
+                                    <i class="glyph-icon icon-edit"></i>
+                                </a>
+                                <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
+                                    title="Remove" onclick="recordDelete(<?php echo $record->id; ?>);">
+                                    <i class="glyph-icon icon-remove"></i>
+                                </a>
+                                <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
@@ -107,10 +110,11 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
 
     <h3>
         <?php echo (isset($_GET['id'])) ? 'Edit ' . $title_txt : 'Add ' . $title_txt; ?>
-        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);" onClick="viewSociallist();">
-        <span class="glyph-icon icon-separator">
-            <i class="glyph-icon icon-arrow-circle-left"></i>
-        </span>
+        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
+            onClick="viewSociallist();">
+            <span class="glyph-icon icon-separator">
+                <i class="glyph-icon icon-arrow-circle-left"></i>
+            </span>
             <span class="button-content"> Back </span>
         </a>
     </h3>
@@ -126,8 +130,9 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
                         </label>
                     </div>
                     <div class="form-input col-md-20">
-                        <input placeholder="Title" class="col-md-4 validate[required,length[0,200]]" type="text" name="title" id="title"
-                               value="<?php echo !empty($socialInfo->title) ? $socialInfo->title : ""; ?>">
+                        <input placeholder="Title" class="col-md-4 validate[required,length[0,200]]" type="text"
+                            name="title" id="title"
+                            value="<?php echo !empty($socialInfo->title) ? $socialInfo->title : ""; ?>">
                     </div>
                 </div>
 
@@ -138,8 +143,9 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
                         </label>
                     </div>
                     <div class="form-input col-md-20">
-                        <input placeholder="Link " class="col-md-4 validate[required,length[0,250]]" type="text" name="linksrc" id="linksrc"
-                               value="<?php echo !empty($socialInfo->linksrc) ? $socialInfo->linksrc : ""; ?>">
+                        <input placeholder="Link " class="col-md-4 validate[required,length[0,250]]" type="text"
+                            name="linksrc" id="linksrc"
+                            value="<?php echo !empty($socialInfo->linksrc) ? $socialInfo->linksrc : ""; ?>">
                     </div>
                 </div>
 
@@ -154,28 +160,32 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
                         <div class="col-md-1" id="removeSavedimg<?php echo $socialInfo->id; ?>">
                             <div class="infobox info-bg">
                                 <div class="button-group" data-toggle="buttons">
-                            <span class="float-left">
-                                <?php
-                                if (file_exists(SITE_ROOT . "images/social/" . $socialInfo->image)):
-                                    $filesize = filesize(SITE_ROOT . "images/social/" . $socialInfo->image);
-                                    echo 'Size : ' . getFileFormattedSize($filesize);
-                                endif;
-                                ?>
-                            </span>
-                                    <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedSocialimage(<?php echo $socialInfo->id; ?>);">
+                                    <span class="float-left">
+                                        <?php
+                                        if (file_exists(SITE_ROOT . "images/social/" . $socialInfo->image)):
+                                            $filesize = filesize(SITE_ROOT . "images/social/" . $socialInfo->image);
+                                            echo 'Size : ' . getFileFormattedSize($filesize);
+                                        endif;
+                                        ?>
+                                    </span>
+                                    <a class="btn small float-right" href="javascript:void(0);"
+                                        onclick="deleteSavedSocialimage(<?php echo $socialInfo->id; ?>);">
                                         <i class="glyph-icon icon-trash-o"></i>
                                     </a>
                                 </div>
-                                <img src="<?php echo IMAGE_PATH . 'social/thumbnails/' . $socialInfo->image; ?>" style="width:100%"/>
-                                <input type="hidden" name="imageArrayname" value="<?php echo !empty($socialInfo->image) ? $socialInfo->image : ""; ?>" class=""/>
+                                <img src="<?php echo IMAGE_PATH . 'social/thumbnails/' . $socialInfo->image; ?>"
+                                    style="width:100%" />
+                                <input type="hidden" name="imageArrayname"
+                                    value="<?php echo !empty($socialInfo->image) ? $socialInfo->image : ""; ?>" class="" />
                             </div>
                         </div>
 
                     <?php endif; ?>
                     <div class="form-input col-md-10 uploader <?php echo !empty($socialInfo->image) ? "hide" : ""; ?>">
                         <input type="file" name="social_icon" id="social_icon" class="transparent no-shadow">
-                        <label><small>Image Dimensions (<?php echo Module::get_properties($moduleId, 'imgwidth'); ?> px X <?php echo Module::get_properties($moduleId, 'imgheight'); ?> px)</small></label>
-                        
+                        <label><small>Image Dimensions (<?php echo Module::get_properties($moduleId, 'imgwidth'); ?> px X
+                                <?php echo Module::get_properties($moduleId, 'imgheight'); ?> px)</small></label>
+
                     </div>
                     <!-- Upload user image preview -->
                     <div id="preview_Image"></div>
@@ -187,9 +197,8 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
                         </label>
                     </div>
                     <div class="form-input col-md-20">
-                        <input placeholder="fab fa-icon" class="col-md-4" type="text"
-                               name="icon" id="icon"
-                               value="<?php echo !empty($socialInfo->icon) ? $socialInfo->icon : ""; ?>">
+                        <input placeholder="fab fa-icon" class="col-md-4" type="text" name="icon" id="icon"
+                            value="<?php echo !empty($socialInfo->icon) ? $socialInfo->icon : ""; ?>">
                     </div>
                 </div>
 
@@ -207,27 +216,31 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
                     </div>
                 </div>
 
-                <button btn-action='0' type="submit" name="submit" class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4"
-                        id="btn-submit" title="Save">
-                <span class="button-content">
-                    Save
-                </span>
+                <button btn-action='0' type="submit" name="submit"
+                    class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4"
+                    id="btn-submit" title="Save">
+                    <span class="button-content">
+                        Save
+                    </span>
                 </button>
-                <button btn-action='1' type="submit" name="submit" class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4"
-                        id="btn-submit" title="Save">
-                <span class="button-content">
-                    Save & More
-                </span>
+                <button btn-action='1' type="submit" name="submit"
+                    class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4"
+                    id="btn-submit" title="Save">
+                    <span class="button-content">
+                        Save & More
+                    </span>
                 </button>
-                <button btn-action='2' type="submit" name="submit" class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4"
-                        id="btn-submit" title="Save">
-                <span class="button-content">
-                    Save & quit
-                </span>
+                <button btn-action='2' type="submit" name="submit"
+                    class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4"
+                    id="btn-submit" title="Save">
+                    <span class="button-content">
+                        Save & quit
+                    </span>
                 </button>
 
-                <input myaction='0' type="hidden" name="idValue" id="idValue" value="<?php echo !empty($socialInfo) ? $socialInfo->id : 0; ?>"/>
-                <input type="hidden" name="type" value="<?php echo $typeid; ?>"/>
+                <input myaction='0' type="hidden" name="idValue" id="idValue"
+                    value="<?php echo !empty($socialInfo) ? $socialInfo->id : 0; ?>" />
+                <input type="hidden" name="type" value="<?php echo $typeid; ?>" />
             </form>
         </div>
     </div>
@@ -237,11 +250,11 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
         // <![CDATA[
         $(document).ready(function () {
             $('#social_icon').uploadify({
-                'swf': '<?php echo ASSETS_PATH;?>uploadify/uploadify.swf',
-                'uploader': '<?php echo ASSETS_PATH;?>uploadify/uploadify.php',
-                'formData': {PROJECT: '<?php echo SITE_FOLDER;?>', targetFolder: 'images/social/', thumb_width: 200, thumb_height: 200},
+                'swf': '<?php echo ASSETS_PATH; ?>uploadify/uploadify.swf',
+                'uploader': '<?php echo ASSETS_PATH; ?>uploadify/uploadify.php',
+                'formData': { PROJECT: '<?php echo SITE_FOLDER; ?>', targetFolder: 'images/social/', thumb_width: 200, thumb_height: 200 },
                 'method': 'post',
-                'cancelImg': '<?php echo BASE_URL;?>uploadify/cancel.png',
+                'cancelImg': '<?php echo BASE_URL; ?>uploadify/cancel.png',
                 'auto': true,
                 'multi': false,
                 'hideButton': false,
@@ -257,7 +270,7 @@ if (isset($_GET['page']) && $_GET['page'] == "social" && isset($_GET['mode']) &&
                 'onUploadSuccess': function (file, data, response) {
                     $('#uploadedImageName').val('1');
                     var filename = data;
-                    $.post('<?php echo BASE_URL;?>apanel/social/uploaded_image.php', {imagefile: filename}, function (msg) {
+                    $.post('<?php echo BASE_URL; ?>apanel/social/uploaded_image.php', { imagefile: filename }, function (msg) {
                         $('#preview_Image').html(msg).show();
                     });
 

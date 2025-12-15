@@ -3,8 +3,6 @@
 
 <head>
   <jcms:site:seotitle/>
-
-
   <jcms:site:fevicon/>
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -16,11 +14,6 @@
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <link rel="shortcut icon" href='images/favicon.png' type="image/x-icon">
-  <link rel="icon" href="images/favicon.png" type="image/x-icon">
-  <!-- Responsive -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 
 <body>
@@ -108,7 +101,7 @@
             processData: false,
             success: function (data) {
               $("button#submit").removeAttr("disabled").text('Submit');
-              $('div#result_msg').html(data.message).css('display', 'block' ,'color','red').fadeOut(8000);
+              $('div#result_msg').html(data.message).css('display', 'block' ,'color', 'green').fadeOut(8000);
               form.reset();
             }
           });

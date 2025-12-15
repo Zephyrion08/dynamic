@@ -311,7 +311,7 @@ if (defined('HOME_PAGE')) {
                         $target = ($recservice->linktype == 1) ? 'target="_blank"' : '';
                         $base_url = ($recservice->linktype == 1) ? $recservice->linksrc : BASE_URL . $recservice->linksrc;
                         $link = '
-                        <a href="="' . $base_url . '" ' . $target . '">' . $recservice->sub_title . '</a>';
+                                <a href="' . $base_url . '" ' . $target . '">' . $recservice->sub_title . '</a>';
                     }
 
                     if ($i % 2 == 0) {
