@@ -210,13 +210,13 @@ function recordDelete(Re){
 }
 
 /***************************************** Link Type Choose *******************************************/
-function linkTypeSelect(Re){
+function linkTypeSelect(Re, Saved = ''){
 	if(Re == 0) {		
 		$('#linkPage_chosen').removeClass("hide");
-		($('#linksrc').val() == 'http://www.') ? $('#linksrc').val('') : null ;
+		($('#linksrc').val() == 'https://www.') ? $('#linksrc').val(Saved) : null ;
 	} else {
 		$('#linkPage_chosen').addClass("hide");
-		($('#linksrc').val() == '') ? $('#linksrc').val("http://www.") : null ;
+		$('#linksrc').val("https://www.");
 	}
 }
 $(document).ready(function(){	
