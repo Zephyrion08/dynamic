@@ -79,7 +79,7 @@ $(document).ready(function () {
 /***************************************** Social Record delete *******************************************/
 function recordDelete(Re){
 	$('.MsgTitle').html('<?php echo sprintf($GLOBALS['basic']['deleteRecord_'],"User")?>');															
-	$('.pText').html('Click on yes button to delete this user permanently.!!');
+	$('.pText').html('Click on yes button to delete this record permanently.!!');
 	$('.divMessageBox').fadeIn();
 	$('.MessageBoxContainer').fadeIn(1000);
 	

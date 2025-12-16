@@ -5,6 +5,7 @@
 
 $mainslides = '';
 $address = '';
+$slides = '';
 
 $Records = Slideshow::getSlideshow_by_mode(1);
 $Recordvideo = Slideshow::getslide_by_mode(2);
@@ -62,8 +63,19 @@ if (!empty($Recordvideo)) {
 
 ';
 }
+if ((!empty($Recordvideo)) && !empty($Records)) {
+    $slides .= '
+    <section class="banner-section">
+      <div class="banner-slider banner-slider-home1">
+        ' . $mainslides . '
+      </div>
+    </section>
+';
 
-$jVars['module:homeslider'] = $mainslides;
+}
+
+
+$jVars['module:homeslider'] = $slides;
 
 
 /* First Slideshow */

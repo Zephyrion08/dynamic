@@ -95,6 +95,7 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                                     <i class="glyph-icon icon-remove"></i>
                                 </a>
                             <?php endif; ?>
+                            <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
                         </td>
                     </tr>
                 <?php } endforeach; ?>

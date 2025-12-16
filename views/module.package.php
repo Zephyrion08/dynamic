@@ -131,7 +131,7 @@ if (defined('PACKAGE_PAGE') and isset($_REQUEST['slug'])) {
                               ';
                                     } else {
                                         $feature_list .= '
-                        <li><i class="' . $sfetname->icon . '" title="' . $sfetname->title . '"></i></li>';
+                        <li><i class="' . htmlspecialchars($sfetname->icon ?? '') . '" title="' . htmlspecialchars($sfetname->title ?? '') . '"></i></li>';
                                     }
 
                                     $i++;

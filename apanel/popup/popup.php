@@ -270,8 +270,9 @@ if (isset($_GET['page']) && $_GET['page'] == "popup" && isset($_GET['mode']) && 
                         </label>
                     </div>
                     <div class="form-checkbox-radio col-md-9">
+                        <?php $saved_src = !empty($popupInfo->linksrc) ?$popupInfo->linksrc : ""; ?>
                         <input id="" class="custom-radio" type="radio" name="linktype" value="0"
-                               onClick="linkTypeSelect(0);" <?php echo !empty($internal) ? $internal : "checked"; ?>>
+                               onClick="linkTypeSelect(0,'<?= $saved_src ?>');" <?php echo !empty($internal) ? $internal : "checked"; ?>>
                         <label for="">Internal Link</label>
                         <input id="" class="custom-radio" type="radio" name="linktype" value="1"
                                onClick="linkTypeSelect(1);" <?php echo !empty($external) ? $external : ""; ?>>

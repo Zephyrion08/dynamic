@@ -20,7 +20,7 @@ if (isset($_GET['page']) && $_GET['page'] == "features" && isset($_GET['mode']) 
             <span class="button-content"> Back </span>
         </a>
         <?php } ?>
-        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
+        <a class="loadingbar-demo btn medium bg-blue-alt float-right mrg5R" href="javascript:void(0);"
         onClick=" <?php echo($parentId==0) ? 'AddNewFeatures()' : 'AddNewFeaturesChild('. $parentId.')'; ?>">
         
     <span class="glyph-icon icon-separator">

@@ -241,21 +241,20 @@ $(document).ready(function () {
         }
     }
 
-    function linkTypeSelect(Re) {
-        if (Re == 0) {
-            $('#linkPage_chosen').removeClass("hide");
-            ($('#linksrc').val() == 'http://www.') ? $('#linksrc').val('') : null;
-        } else {
-            $('#linkPage_chosen').addClass("hide");
-            ($('#linksrc').val() == '') ? $('#linksrc').val("http://www.") : null;
-        }
-    }
-
-    $(document).ready(function () {
-        $('#linkPage').change(function () {
-            $('#linksrc').val($(this).val());
-        });
-    });
+function linkTypeSelect(Re, Saved = ''){
+	if(Re == 0) {		
+		$('#linkPage_chosen').removeClass("hide");
+		($('#linksrc').val() == 'https://www.') ? $('#linksrc').val(Saved) : null ;
+	} else {
+		$('#linkPage_chosen').addClass("hide");
+		$('#linksrc').val("https://www.");
+	}
+}
+$(document).ready(function(){	
+	$('#linkPage').change(function(){
+		$('#linksrc').val($(this).val());
+	});
+});
 
     /******************************** Remove saved Articles image ********************************/
     function deleteSavedPopupimage(Re) {

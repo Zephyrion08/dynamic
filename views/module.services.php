@@ -175,7 +175,6 @@ if (defined('FACILITY_PAGE')) {
 
     $record = Services::getservice_list();
     if (!empty($record)) {
-        $count = $countsec = 0;
         foreach ($record as $recRow) {
             if (!empty($recRow->icon)) {
                 $facility .= '
@@ -188,17 +187,29 @@ if (defined('FACILITY_PAGE')) {
                 ';
             } else {
 
-                $img = unserialize($recRow->image);
-                $file_path = SITE_ROOT . 'images/services/' . $img[0];
-                if (file_exists($file_path) && $img[0] != NULL) {
-                    $imglink = IMAGE_PATH . 'services/' . $img[0];
+                $img = !empty($recRow->image) ? @unserialize($recRow->image) : [];
+
+                if (is_array($img) && !empty($img[0])) {
+                    $file_path = SITE_ROOT . 'images/services/' . $img[0];
+                    if (file_exists($file_path)) {
+                        $imglink = IMAGE_PATH . 'services/' . $img[0];
+                        $iconHtml = '<img src="' . $imglink . '">';
+                    } else {
+                        $iconHtml = '';
+                    }
+                } else {
+                    $iconHtml = '';
+                }
+
+
+                if (!empty($iconHtml)) {
                     $facility .= '
                     <div class="service-block-six text-center col-lg-3 col-sm-6">
                         <div class="inner-box">
                             <div class="icon-box">
                                 <div class="bg-shap">
                                     <div class="bg-shap">
-                                        <img src="' . $imglink . '">
+                                        ' . $iconHtml . '
                                     </div>
                                 </div>
                             </div>
@@ -272,6 +283,7 @@ $jVars['module:service-main'] = $rescont;
 
 $facilityhome = "";
 $facilityhomeservice = '';
+$fac = '';
 if (defined('HOME_PAGE')) {
     $record = Services::getservice_list(8, 1);
     if (!empty($record)) {
@@ -352,6 +364,30 @@ if (defined('HOME_PAGE')) {
                 }
             }
         }
+        $fac .= '
+            <section class="service-section-two pt-80 pb-0">
+      <div class="auto-container">
+        <div class="sec-title wow fadeInUp">
+          <div class="row">
+            <div class="col-lg-5">
+              <span class="sub-title style-three">Our Services</span>
+              <h2>Stay Better, Travel Happier with Us</h2>
+            </div>
+            <div class="col-lg-4 offset-lg-2">
+              <div class="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                has been the industry\'s standard dummy text </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer-box" data-background="template/web/images/background/bg1.jpg">
+        <div class="service-two-slider">
+          ' . $facilityhomeservice . '
+        </div>
+      </div>
+    </section>
+        ';
     }
 }
 if (defined('FACILITY_PAGE')) {
@@ -372,8 +408,8 @@ if (defined('FACILITY_PAGE')) {
 
                 ';
             } else {
-
-                $img = unserialize($recRow->image);
+                $imglink = '';
+                $img = !empty($recRow->image) ? unserialize($recRow->image) : [];
                 $file_path = SITE_ROOT . 'images/services/' . $img[0];
                 if (file_exists($file_path) && $img[0] != NULL) {
                     $imglink = IMAGE_PATH . 'services/' . $img[0];
@@ -396,6 +432,6 @@ if (defined('FACILITY_PAGE')) {
 }
 
 $jVars['module:facility-list-home'] = $facilityhome;
-$jVars['module:facility-service-home'] = $facilityhomeservice;
+$jVars['module:facility-service-home'] = $fac;
 
 ?>

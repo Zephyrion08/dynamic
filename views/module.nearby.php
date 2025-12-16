@@ -104,10 +104,7 @@ if (defined('HOME_PAGE')) {
             // --- End original $nearbydetail and $nearbydetail_modals logic ---
 
         }
-    }
-
-    // --- Assemble the final HTML for the attractions section ---
-    $nearbymain = '
+        $nearbymain = '
         <section class="news-section">
             <div class="auto-container">
                 <div class="sec-title text-center wow fadeInUp">
@@ -119,6 +116,10 @@ if (defined('HOME_PAGE')) {
                 </div>
             </div>
         </section>';
+    }
+
+    // --- Assemble the final HTML for the attractions section ---
+
 }
 
 // Assign the final output to your target variable

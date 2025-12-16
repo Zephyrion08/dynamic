@@ -63,6 +63,7 @@ $jVars['module:testimonialList123'] = $result_last;
  * Testimonial Header Title
  */
 $tstHtitle = '';
+$test = '';
 
 if (defined('HOME_PAGE')) {
     $tstRec = Testimonial::get_alltestimonial();
@@ -89,9 +90,30 @@ if (defined('HOME_PAGE')) {
           </div>
 ';
         }
+        $test .= '
+            <section class="testimonial-section-four">
+      <div class="auto-container">
+        <div class="row justify-content-end">
+          <div class="col-lg-8">
+            <div class="sec-title text-center">
+              <span class="sub-title">Our Customer Feedback</span>
+              <h2>What Client\'s Say?</h2>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-carousel-two slick-gap-30">
+          ' . $tstHtitle . '
+        </div>
+      </div>
+      <div class="image-box d-none d-lg-block">
+        <figure class="image wow reveal-top tm-gsap-img-parallax overflow-hidden"><img
+            src="images/resource/testimonials-side-bg.jpg" alt=""></figure>
+      </div>
+    </section>
+        ';
     }
 }
-$jVars['module:testimonial-title'] = $tstHtitle;
+$jVars['module:testimonial-title'] = $test;
 
 
 /*

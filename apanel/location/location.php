@@ -298,7 +298,7 @@ $unstatus = ($locationRow->location_type == 0) ? "checked" : " "; ?>
             'height': 21,
             'removeCompleted': true,
             'progressData': 'speed',
-            'uploadLimit': 5,
+            'uploadLimit': 50,
             'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/

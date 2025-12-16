@@ -62,12 +62,12 @@ if (isset($_GET['page']) && $_GET['page'] == "articles" && isset($_GET['mode']) 
                                data-placement="top" title="Edit" onclick="editRecord(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-edit"></i>
                             </a>
-                        <?php if ($record->id != 21): ?>
+                       
                             <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top" title="Remove"
                                 onclick="recordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
                             </a>
-                        <?php endif; ?>
+                       
                             <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
                         </td>
                     </tr>
@@ -78,7 +78,9 @@ if (isset($_GET['page']) && $_GET['page'] == "articles" && isset($_GET['mode']) 
         <div class="pad0L col-md-2">
             <select name="dropdown" id="groupTaskField" class="custom-select">
                 <option value="0"><?php echo $GLOBALS['basic']['choseAction']; ?></option>
+                 
                 <option value="delete"><?php echo $GLOBALS['basic']['delete']; ?></option>
+                
                 <option value="toggleStatus"><?php echo $GLOBALS['basic']['toggleStatus']; ?></option>
             </select>
         </div>

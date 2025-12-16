@@ -1,6 +1,6 @@
 <?php
 include_once('../../includes/initialize.php');
-if(!isset($_SESSION['imageNameArr'])){ $_SESSION['imageNameArr']=""; }
+if(!isset($_SESSION['imageNameArr'])){ $_SESSION['imageNameArr']=[]; }
 $_SESSION['imageNameArr'][] = $_POST['imagefile']; 
 $imageNameArr =  $_SESSION['imageNameArr'];
 $deleteid = rand(0,99999);

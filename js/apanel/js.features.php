@@ -136,11 +136,11 @@ $(document).ready(function () {
                                 var actionlist = $('#parentId').val();
                                 if (actionId == 3)
                                     setTimeout(function () {
-                                        window.location.href = "<?php echo ADMIN_URL?>features/addnew/" + Re;
+                                        window.location.href = "<?php echo ADMIN_URL?>features/addnew/" + (Re ? Re : "");
                                     }, 3000);
                                 if (actionId == 2)
                                     setTimeout(function () {
-                                        window.location.href = "<?php echo ADMIN_URL?>features/list/" + Re;
+                                        window.location.href = "<?php echo ADMIN_URL?>features/list/" + (Re ? Re : "");
                                     }, 3000);
                                 if (actionId == 1)
                                     setTimeout(function () {
