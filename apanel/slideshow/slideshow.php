@@ -305,7 +305,7 @@ if (isset($_GET['page']) && $_GET['page'] == "slideshow" && isset($_GET['mode'])
                 </div>
                 
                 <?php }?>
-
+                <?php if ($typeid == 1) { ?>
                 <div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">
@@ -346,7 +346,8 @@ if (isset($_GET['page']) && $_GET['page'] == "slideshow" && isset($_GET['mode'])
                         </div>
                     </div>
                 </div>
-<?php if($typeid==1){?>
+
+               
                 <div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">
