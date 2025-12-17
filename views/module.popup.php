@@ -1,7 +1,7 @@
 <?php
 /*
-* Comment Header Title
-*/
+ * Comment Header Title
+ */
 $restst = '';
 $reststpopup = '';
 
@@ -14,9 +14,8 @@ if (!empty($tstRec)) {
         <div class="modal fade" id="modal-popup-video">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" title="Close"> 
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                     <div class="clearfix"></div>
                     <div class="modal-body">
 					<!--CAROUSEL CODE GOES HERE-->
@@ -27,8 +26,8 @@ if (!empty($tstRec)) {
     foreach ($tstRec as $tstRow) {
         //if(!empty($tstRow->source){
         $active = ($count == 1) ? 'active' : '';
-        $parts = explode('.',$tstRow->source);
-        if($parts[1] == 'facebook'){
+        $parts = explode('.', $tstRow->source);
+        if ($parts[1] == 'facebook') {
             $restst .= ' 
                 <style>
                 @media (min-width: 768px){
@@ -38,7 +37,7 @@ if (!empty($tstRec)) {
                 }
                 </style>
                 <div class="item ' . $active . '">
-                    <iframe src="https://www.facebook.com/plugins/video.php?href='.urlencode($tstRow->source).'&width=365&show_text=false&appId=668102922175064&height=650" 
+                    <iframe src="https://www.facebook.com/plugins/video.php?href=' . urlencode($tstRow->source) . '&width=365&show_text=false&appId=668102922175064&height=650" 
                     width="365" height="650" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
                 </div>
                 ';
@@ -51,7 +50,7 @@ if (!empty($tstRec)) {
         }
         $count++;
     }
-    if(sizeof($tstRec) > 1) {
+    if (sizeof($tstRec) > 1) {
         $restst .= '
                 <!--Begin Previous and Next buttons-->
                 <a class="left carousel-control" href="#videoCarousel" role="button" data-slide="prev"> 
@@ -97,7 +96,7 @@ if (!empty($tstRec)) {
 //     }
 // }
 //     $restst .= '
-        
+
 //             <div class="cstm_modal">
 //                 <a href="#" class="close closepop" style="color:#fff;">X</a>
 //                 <img src="' . $imglink . '">
@@ -117,20 +116,20 @@ if (!empty($tstRec)) {
 
 /*********** From new */
 
-$orientation='';
+$orientation = '';
 
 $popRec = Popup::get_allpopup(1);
 if (!empty($popRec)) {
     //modal img
     $count = 1;
     $active = '';
-        // pr($popRec);
+    // pr($popRec);
     foreach ($popRec as $popr) {
-      
+
     }
-    
-       foreach ($popRec as $popr) {
-           $orientation='';
+
+    foreach ($popRec as $popr) {
+        $orientation = '';
         if (($popr->image) != "a:0:{}") {
             $q = implode(unserialize($popr->image));
             $file_path = SITE_ROOT . 'images/popup/' . $q;
@@ -147,24 +146,22 @@ if (!empty($popRec)) {
                     <a href="' . $linkhref . '" ' . $target . '><img src="' . $imglink . '" alt="' . $popr->title . '" class="img-fluid"></a>
                 </div>
                 ';
-                // pr($imglink);
+            // pr($imglink);
 
             $count++;
-              if($popr->position==1){
-        $orientation='';
-        }
-        elseif($popr->position==2){
-           $orientation='horizontal'; 
-        }
-        else{
-            $orientation='square';
-        }
+            if ($popr->position == 1) {
+                $orientation = '';
+            } elseif ($popr->position == 2) {
+                $orientation = 'horizontal';
+            } else {
+                $orientation = 'square';
+            }
         }
     }
     $restst = ' 
      <div class="col-sm-10 center-block center-text">
         <div class="modal fade" id="modal-popup-image" >
-            <div class="modal-dialog '.$orientation. '">
+            <div class="modal-dialog ' . $orientation . '">
                 <div class="modal-content popup_overlay popup_content">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -173,13 +170,13 @@ if (!empty($popRec)) {
 					<!--CAROUSEL CODE GOES HERE-->
                         <div id="myCarousel" class="carousel slide">
                             <div class="carousel-inner">
-                            '.$reststpopup.'
+                            ' . $reststpopup . '
                             ';
- 
+
     $restst .= ' <!--end carousel-inner-->
                         </div>
     ';
-    if(sizeof($popRec) > 1) {
+    if (sizeof($popRec) > 1) {
         $restst .= '
             <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -191,7 +188,7 @@ if (!empty($popRec)) {
             </button>
         ';
     }
-    $restst .='
+    $restst .= '
                         
                         </div>
                         <!--end carousel-->
@@ -227,7 +224,7 @@ if (!empty($popRec)) {
     //         $active = ($count == 1) ? 'active' : '';
     //         $restst .= '  
     //             <div class="item ' . $active . '">
-                    
+
     //                 <div class="cover_img">
     //                     <a href="' . BASE_URL . '' . $popr->linksrc . '">
     //                         <img src="' . $imglink . '" class="img-responsive">

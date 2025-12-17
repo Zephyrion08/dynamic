@@ -5,37 +5,36 @@ $vt_bread = $vt_details = $subScript = '';
 //VIRTUAL TOUR ID FOR USING SPECIFIC; TO CREATE NEW VIRTUAL TOUR [VT]
 //$vid = 4;
 
-$imglink = BASE_URL . 'template/web/images/default.jpg';
-// default image from Preference Mgmt
-if (!empty($siteRegulars->other_upload)) {
-    if (file_exists(SITE_ROOT . "images/preference/other/" . $siteRegulars->other_upload)) {
-        $imglink = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
-    }
+if (!empty($imglink)) {
+    $img = IMAGE_PATH . 'preference/contact/' . $siteRegulars->contact_upload;
+} elseif (!empty($siteRegulars->other_upload)) {
+    $img = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+} else {
+    $img = BASE_URL . 'template/web/images/background/page-title-bg.png';
 }
 
 $vt_bread .= '
- <div class="banner-header section-padding valign bg-darkbrown1" data-overlay-dark="4" data-background="'.$imglink.'">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center caption mt-90">
-                    <h1>Virtual Tour</h1>
-                </div>
-            </div>
+    <section class="page-title" style="background-image: url(' . $img . ');">
+      <div class="auto-container">
+        <div class="title-outer text-center">
+          <h1 class="title">Virtual toure</h1>
         </div>
-    </div>
+      </div>
+    </section>
 ';
+
 
 
 function generate_virtual_tour($vtId)
 {
 
-    $virtual    = VirtualTour::find_by_id_active($vtId);
-    $images     = Image360::find_by_v_id($vtId);
+    $virtual = VirtualTour::find_by_id_active($vtId);
+    $images = Image360::find_by_v_id($vtId);
     $siteRegulars = Config::find_by_id(1);
     $vt_script_f = $vt_detail_f = '';
     $vt_nav = $vt_cases = '';
 
-    if(!empty($virtual)){
+    if (!empty($virtual)) {
         $vt_script_f .= '
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
@@ -60,14 +59,14 @@ function generate_virtual_tour($vtId)
             var viewer' . $vtId . ' = pannellum.viewer("panorama' . $vtId . '", {   
                 "default": {
                     "firstScene": "img' . @$images[0]->id . '",
-                    "author": "'.$siteRegulars->sitetitle.'",
+                    "author": "' . $siteRegulars->sitetitle . '",
                     "sceneFadeDuration": ' . $virtual->scene_fade_duration . ',
                     "autoLoad": true
                 },
                 "scenes": {
         ';
 
-        if(!empty($images)){
+        if (!empty($images)) {
             foreach ($images as $img) {
                 $vt_nav .= '
                     <li class="list-group-item">
@@ -92,15 +91,15 @@ function generate_virtual_tour($vtId)
 
                 //GETTING 360 IMAGES BY IDS
                 $hotspot = Hotspots::find_by_images($img->id);
-                if(!empty($hotspot)){
+                if (!empty($hotspot)) {
                     foreach ($hotspot as $hp) {
                         // $img_title = (!empty($hp->scene_id) AND $hp->scene_id != ' ') ? Image360::field_by_id($hp->scene_id, 'title') : '';
-                        $img_title = (!empty($hp->scene_id) AND $hp->scene_id != ' ') ? 'img'.Image360::field_by_id($hp->scene_id, 'id') : '';
+                        $img_title = (!empty($hp->scene_id) AND $hp->scene_id != ' ') ? 'img' . Image360::field_by_id($hp->scene_id, 'id') : '';
                         $vt_script_f .= '
                                     {
                                         "pitch": ' . $hp->hotspot_pitch . ',
                                         "yaw": ' . $hp->hotspot_yaw . ',
-                                        "type": "'.$hp->hotspot_type.'",
+                                        "type": "' . $hp->hotspot_type . '",
                                         "text": "' . $hp->title . '",
                                         "sceneId": "' . $img_title . '",
                         ';
@@ -164,7 +163,7 @@ function generate_virtual_tour($vtId)
             <div class="d-none hide">
                 <h2>Choose a Scene</h2>
                 <ul>
-                    '.$vt_nav.'
+                    ' . $vt_nav . '
                 </ul>
             </div>
             <div id="panorama' . $vtId . '" class="panellum-context"></div>

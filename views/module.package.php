@@ -94,7 +94,7 @@ if (defined('PACKAGE_PAGE') and isset($_REQUEST['slug'])) {
                             </div>';
                 $roomlist .= '
                             <div class="box-caption">
-                                <a href="' . BASE_URL . $subpkgRow->slug . '" class="book-btn">book now</a>';
+                                <a href="#" class="book-btn">book now</a>';
 
                 if (!empty($subpkgRow->feature)) {
                     // pr($subpkgRec->feature);
@@ -347,11 +347,11 @@ if (defined('PACKAGE_PAGE') and isset($_REQUEST['slug'])) {
                             </div>
                             <div class="content-box">
                                 <h6 class="title"><a href="' . BASE_URL . $subpkgRow->slug . '">' . $subpkgRow->title . '</a></h6>
-                                <span class="price">' . $subpkgRow->onep_price . $subpkgRow->currency . ' / NIGHT</span>
+                                
                             </div>';
                 $roomlist .= '
                             <div class="box-caption">
-                                <a href="' . BASE_URL . $subpkgRow->slug . '" class="book-btn">book now</a>';
+                                <a href="#" class="book-btn">Inquiry</a>';
 
                 if (!empty($subpkgRow->feature)) {
                     // pr($subpkgRec->feature);
@@ -867,10 +867,11 @@ if ((defined('SUBPACKAGE_PAGE') && isset($_REQUEST['slug']))) {
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <input name="form_botcheck" class="form-control" type="hidden" value="">
+                                        <a href="#">
                                         <button type="submit" class="theme-btn btn-style-one w-100"
-                                            data-loading-text="Please wait..."><span class="btn-title">Book
+                                            ><span class="btn-title">Book
                                                 Now</span></button>
+                                                </a>
                                     </div>
                                 </form>
 

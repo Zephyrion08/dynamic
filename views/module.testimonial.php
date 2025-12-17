@@ -107,7 +107,7 @@ if (defined('HOME_PAGE')) {
       </div>
       <div class="image-box d-none d-lg-block">
         <figure class="image wow reveal-top tm-gsap-img-parallax overflow-hidden"><img
-            src="images/resource/testimonials-side-bg.jpg" alt=""></figure>
+            src= "' . BASE_URL . 'template/web/images/resource/testimonials-side-bg.jpg" alt=""></figure>
       </div>
     </section>
         ';

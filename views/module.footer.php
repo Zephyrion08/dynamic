@@ -40,6 +40,7 @@ foreach ($emails as $email) {
     $emailinked .= ',';
   }
 }
+
 $phoneno = explode("/", $siteRegulars->whatsapp);
 $lastElement = array_shift($phoneno);
 $phonelinked .= '<a href="tel:+977-' . $lastElement . '" target="_blank" rel="noreferrer">' . $lastElement . '</a>/';
@@ -50,6 +51,7 @@ foreach ($phoneno as $phone) {
     $phonelinked .= '/';
   }
 }
+
 $roomslist = '';
 $rooms = Subpackage::find_by_sql("SELECT * FROM tbl_package_sub WHERE status='1' AND type='2' ORDER BY sortorder DESC");
 if (!empty($rooms)) {

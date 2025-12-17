@@ -112,7 +112,7 @@
 
     <!-- Testimonial Section -->
 
-    <jcms:module:testimonial-title />
+    <jcms:module:testimonial-title/>
     <!-- End Testimonial Section One -->
 
     <!-- news-section -->
@@ -123,12 +123,10 @@
   <jcms:module:footer/>
     <!--End Main Footer -->
 
-    <div class="whats_app">
-      <a href="#" target="_blank" class="whatsapp"><img src="images/icons/whatsapp.png"></a>
-    </div>
+  <jcms:module:popup/>
 
     <div class="three_app">
-      <a href="#" target="_blank" class="three"><img src="images/icons/tour.jpg"></a>
+      <a href="virtual-tour" target="_blank" class="three"><img src="images/icons/tour.jpg"></a>
     </div>
 
     <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-up"></span></div>
@@ -169,6 +167,49 @@
         .css("background-image", "url(" + newBackground + ")");
     });
   </script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    // FIX: Move modals to body tag to prevent backdrop from covering them
+    if ($("#modal-popup-video").length) {
+      $("#modal-popup-video").appendTo("body");
+    }
+    if ($("#modal-popup-image").length) {
+      $("#modal-popup-image").appendTo("body");
+    }
+
+    // Logic to handle Video -> Image sequence
+    if ($("#modal-popup-video").length > 0) {
+      // 1. Show Video Modal
+      var videoModal = new bootstrap.Modal(document.getElementById('modal-popup-video'));
+      videoModal.show();
+
+      // 2. When Video closes, stop video and open Image Modal
+      $("#modal-popup-video").on("hidden.bs.modal", function () {
+        $("#modal-popup-video iframe").attr("src", ""); // Stop video playback
+        console.log("video closed");
+
+        if ($("#modal-popup-image").length > 0) {
+          var imageModal = new bootstrap.Modal(document.getElementById('modal-popup-image'));
+          imageModal.show();
+        }
+      });
+    }
+    else if ($("#modal-popup-image").length > 0) {
+      // No video, just show Image Modal
+      var imageModal = new bootstrap.Modal(document.getElementById('modal-popup-image'));
+      imageModal.show();
+    }
+
+    // Handle Dealand side buttons
+    jQuery(".deals .close").on("click", function () {
+      jQuery(".deals").addClass("d-none");
+    });
+    $("#offon").on("click", function () {
+      $(".deals").toggleClass("d-none");
+    });
+  });
+</script>
 </body>
 
 </html>
