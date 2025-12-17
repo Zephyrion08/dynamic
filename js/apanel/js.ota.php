@@ -30,8 +30,8 @@ $(document).ready(function() {
 
 /***************************************** ota Record delete *******************************************/
 function recordDelete(Re){
-	$('.MsgTitle').html('<?php echo sprintf($GLOBALS['basic']['deleteRecord_'],"User")?>');															
-	$('.pText').html('Click on yes button to delete this user permanently.!!');
+	$('.MsgTitle').html('<?php echo sprintf($GLOBALS['basic']['deleteRecord_'],"data")?>');															
+	$('.pText').html('Click on yes button to delete this data permanently.!!');
 	$('.divMessageBox').fadeIn();
 	$('.MessageBoxContainer').fadeIn(1000);
 	

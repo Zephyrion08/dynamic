@@ -4,7 +4,7 @@ class Usergrouptype extends DatabaseObject
 {
 
     protected static $table_name = "tbl_group_type";
-    protected static $db_fields = array('id', 'group_name', 'group_type', 'authority', 'description', 'status' , 'permission');
+    protected static $db_fields = array('id', 'group_name', 'group_type', 'authority', 'description', 'status', 'permission');
 
     public $id;
     public $group_name;
@@ -23,6 +23,15 @@ class Usergrouptype extends DatabaseObject
         $return = $db->fetch_array($result);
         return ($return) ? $return['group_name'] : '';
     }
+    public static function checkDupliName($group_name = '')
+    {
+        global $db;
+        $query = $db->query("SELECT group_name FROM " . self::$table_name . " WHERE group_name='$group_name'");
+        $result = $db->num_rows($query);
+        if ($result > 0) {
+            return true;
+        }
+    }
 
     // Find maximum
     public static function find_maximum($field = "sortorder")
@@ -37,7 +46,7 @@ class Usergrouptype extends DatabaseObject
     public static function find_all($type = '')
     {
         global $db;
-        $cond = (!empty($type)) ? ' and group_type='.$type : '';
+        $cond = (!empty($type)) ? ' and group_type=' . $type : '';
         return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 {$cond}");
     }
 
