@@ -56,6 +56,13 @@ class User extends DatabaseObject
         return !empty($result_array) ? array_shift($result_array) : false;
     }
 
+    public static function find_by_username($username = "")
+    {
+        global $db;
+        $result_array = self::find_by_sql("SELECT `id`,`email`,`first_name`,`middle_name`,`last_name` FROM " . self::$table_name . " WHERE `username`='" . $username . "' LIMIT 1");
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
+
     // get valid email address for new password generate (forget password)
     public static function get_validMember_mail($email = "")
     {

@@ -186,96 +186,81 @@ switch ($action) {
 		break;
 
 	case "forgetuser_password":
-		$emailAddress = addslashes($_REQUEST['mailaddress']);
-		$mailcheck = User::get_validMember_mail($emailAddress);
+		$input = trim($_REQUEST['mailaddress']); // can be email or username
 
-		if ($mailcheck):
-			$accessToken = randomKeys(10);
-			$row = User::find_by_mail($emailAddress);
+		// Try finding by email first
+		$row = User::find_by_mail($input);
 
+		// If not found by email, try username
+		if (!$row) {
+			$row = User::find_by_username($input);
+		}
+
+		if ($row) {
+			// Load user record and generate access token
 			$forgetRec = User::find_by_id($row->id);
+			$accessToken = randomKeys(10);
 			$forgetRec->access_code = $accessToken;
 
-			/* Mail Format */
-			$siteName = Config::getField('sitename', true);
-			$AdminEmail = User::get_UseremailAddress_byId(1);
+			// Get user info
 			$UserName = User::get_user_shotInfo_byId($row->id);
 			$fullName = $UserName->first_name . ' ' . $UserName->middle_name . ' ' . $UserName->last_name;
+			$siteName = Config::getField('sitename', true);
 
+			// Determine which admin to send email to based on group
+			$groupTypeId = $forgetRec->group_id; // 1=Super Admin, 2=General Admin, 3=Manager
+			if ($groupTypeId == 3) { // Manager
+				$AdminEmail = User::get_UseremailAddress_byId(2); // General Admin email
+			} elseif ($groupTypeId == 2) { // General Admin
+				$AdminEmail = User::get_UseremailAddress_byId(1); // Super Admin email
+			} else { // Super Admin or fallback
+				$AdminEmail = User::get_UseremailAddress_byId(1);
+			}
+
+			// Build email body
 			$msgbody = '<div>
-				<h3>Reset password on ' . $siteName . '</h3>				
-				<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-				Please <a href="' . ADMIN_URL . 'resetpassword-' . $accessToken . '">click here to reset your password.</a> <br><br>
-				If you didn\'t request your password then delete this email.  <br>
-				<br><br>
-				<p>Thanks,
-				<br> Webmaster<br>
-				' . $siteName . '
-				</p>
-				</div>
-				</div>';
+            <h3>Reset password on ' . $siteName . '</h3>				
+            <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+            Please <a href="' . ADMIN_URL . 'resetpassword-' . $accessToken . '">click here to reset your password.</a> <br><br>
+            If you didn\'t request your password then delete this email.  <br>
+            <br><br>
+            <p>Thanks,
+            <br> Webmaster<br>
+            ' . $siteName . '
+            </p>
+            </div>
+            </div>';
 
+			// Send email using PHPMailer
 			$mail = new PHPMailer();
-
 			$mail->SetFrom($AdminEmail, $siteName);
 			$mail->AddReplyTo($forgetRec->email, $fullName);
-			$mail->AddAddress($forgetRec->email, $fullName);
+			$mail->AddAddress($AdminEmail, $fullName);
 			$mail->Subject = "Forgot password on " . $siteName;
 			$mail->MsgHTML($msgbody);
 
-			if (!$mail->Send()):
-				echo json_encode(array('action' => 'unsuccess', 'message' => 'Not valid User email address'));
-			else:
-				$forgetRec->save();
-				echo json_encode(array('action' => 'success', 'message' => 'Please check your mail for reset passord'));
-			endif;
-		else:
-			echo json_encode(array('action' => 'unsuccess', 'message' => 'Not valid User email address'));
-		endif;
-		if ($mailcheck):
-			$accessToken = randomKeys(10);
-			$row = User::find_by_mail($emailAddress);
+			if (!$mail->Send()) {
+				echo json_encode([
+					'action' => 'unsuccess',
+					'message' => 'Failed to send email. Please try again.'
+				]);
+			} else {
+				$forgetRec->save(); // save the access token
+				echo json_encode([
+					'action' => 'success',
+					'message' => 'Please check your mail for reset password.'
+				]);
+			}
+		} else {
+			// User not found by email or username
+			echo json_encode([
+				'action' => 'unsuccess',
+				'message' => 'Not valid user email or username.'
+			]);
+		}
 
-			$forgetRec = User::find_by_id($row->id);
-			$forgetRec->access_code = $accessToken;
-
-			/* Mail Format */
-			$siteName = Config::getField('sitename', true);
-			$AdminEmail = User::get_UseremailAddress_byId(2);
-			$UserName = User::get_user_shotInfo_byId($row->id);
-			$fullName = $UserName->first_name . ' ' . $UserName->middle_name . ' ' . $UserName->last_name;
-
-			$msgbody = '<div>
-				<h3>Reset password on ' . $siteName . '</h3>				
-				<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-				Please <a href="' . ADMIN_URL . 'resetpassword-' . $accessToken . '">click here to reset your password.</a> <br><br>
-				If you didn\'t request your password then delete this email.  <br>
-				<br><br>
-				<p>Thanks,
-				<br> Webmaster<br>
-				' . $siteName . '
-				</p>
-				</div>
-				</div>';
-
-			$mail = new PHPMailer();
-
-			$mail->SetFrom($AdminEmail, $siteName);
-			$mail->AddReplyTo($forgetRec->email, $fullName);
-			$mail->AddAddress($forgetRec->email, $fullName);
-			$mail->Subject = "Forgot password on " . $siteName;
-			$mail->MsgHTML($msgbody);
-
-			if (!$mail->Send()):
-				echo json_encode(array('action' => 'unsuccess', 'message' => 'Not valid User email address'));
-			else:
-				$forgetRec->save();
-				echo json_encode(array('action' => 'success', 'message' => 'Please check your mail for reset passord'));
-			endif;
-		else:
-			echo json_encode(array('action' => 'unsuccess', 'message' => 'Not valid User email address'));
-		endif;
 		break;
+
 
 	case "resetuser_password":
 		$id = addslashes($_REQUEST['userId']);

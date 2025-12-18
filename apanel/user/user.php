@@ -258,16 +258,13 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                             id="passwordConfirm">
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row" id="emailRow">
                     <div class="form-label col-md-2">
-                        <label for="">
-                            Email :
-                        </label>
+                        <label>Email :</label>
                     </div>
                     <div class="form-input col-md-20">
-                        <input placeholder="Email Address" class="col-md-4 validate[required,custom[email]]" type="text"
-                            id="email" name="email"
-                            value="<?php echo !empty($usersInfo->email) ? $usersInfo->email : ""; ?>">
+                        <input type="text" id="email" name="email" class="col-md-4 validate[required,custom[email]]"
+                            placeholder="Email Address">
                     </div>
                 </div>
                 <?php if (!empty($usersInfo) && ($usersInfo->group_id != 1)) { ?>
