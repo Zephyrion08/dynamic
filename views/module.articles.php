@@ -119,6 +119,9 @@ if (defined('INNER_PAGE') and isset($_REQUEST['slug'])) {
                     ' . $content . ' 
                     ';
     }
+    else{
+        
+    }
 }
 
 $jVars['module:inner-about-detail'] = $aboutdetail;

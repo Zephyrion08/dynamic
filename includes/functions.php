@@ -743,29 +743,26 @@ if(!function_exists("pr")){
 	}
 }
 
-if(!function_exists("randomKeys")){
-	function randomKeys($length,$pattern=''){
-		$i = "";
-		$key     = "";
-		$add     = "";
-		$strLength  = 0;
-	   if(empty($pattern)){
-		$pattern  =  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";   
-	   }
-	   $i = 0;
-	   $strLength  =  strlen($pattern);
-	   for($i=1;$i<=$length;$i++){
-		   $add     =  $pattern[rand(0,$strLength)];
-		   if(empty($add)){
-		   $add     =  $pattern[rand(0,$strLength)];
-		   $key   .= $add; 
-		   }else{
-			 $key   .= $add;   
-		   }		  
-	   }
-	   return $key;
+if (!function_exists("randomKeys")) {
+	function randomKeys($length, $pattern = '')
+	{
+		$key = '';
+
+		if (empty($pattern)) {
+			$pattern = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		}
+
+		$strLength = strlen($pattern);
+
+		for ($i = 1; $i <= $length; $i++) {
+			$add = $pattern[rand(0, $strLength - 1)];
+			$key .= $add;
+		}
+
+		return $key;
 	}
 }
+
 
 function set_na($arg){
 	return !empty($arg)?$arg:'N/A';

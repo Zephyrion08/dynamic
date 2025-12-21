@@ -83,10 +83,10 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                                             </a>
                                         <?php endif; ?>
                                         <!-- <a href="javascript:void(0);" class="loadingbar-demo btn small bg-green tooltip-button"
-                               data-placement="top" title="Permissioin"
-                               onclick="permission(<?php echo $record->id; ?>);">
-                                <i class="glyph-icon icon-gear"></i>
-                            </a> -->
+                                            data-placement="top" title="Permissioin" onclick="permission(<?php echo $record->id; ?>);">
+                                            <i class="glyph-icon icon-gear"></i>
+                                        </a> -->
+
                                     <?php } ?>
                                     <?php if ($uid == 2 || $uid == $record->id): ?>
                                         <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
@@ -94,7 +94,7 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                                             <i class="glyph-icon icon-edit"></i>
                                         </a>
                                     <?php endif; ?>
-                                    <?php if ($uid == 2): ?>
+                                    <?php if ($uid == 2 && $record->id != 2 && $record->id != 1): ?>
                                         <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                                             title="Remove" onclick="recordDelete(<?php echo $record->id; ?>);">
                                             <i class="glyph-icon icon-remove"></i>
@@ -162,17 +162,28 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                                 <option value="">Choose</option>
                                 <?php
                                 $GroupTypeRec = Usergrouptype::find_all();
+
                                 if ($GroupTypeRec):
                                     foreach ($GroupTypeRec as $GroupTypeRow):
-                                        // NEW LOGIC: If the logged-in user is NOT an Administrator (Group 1), 
-                                        // hide the Administrator option from the dropdown list.
-                                        if ($uid != 1 && $GroupTypeRow->group_name == 'Administrator') {
-                                            continue;
-                                        }
-                                        if ($usId != 2 && $GroupTypeRow->group_name == 'General Admin') {
-                                            continue;
+
+                                        // Prevent Administrator option for anyone except Super Admin
+                                        // Also, if editing another user, never show Administrator
+                                        if ($GroupTypeRow->group_name == 'Administrator') {
+
+                                            // Allow current Administrator to see their own role only
+                                            if (!($usersInfo->group_id == 1 && $usersInfo->id == $usId)) {
+                                                continue; // skip Administrator for everyone else
+                                            }
                                         }
 
+                                        // Prevent Administrator from changing their own role
+                                        if ($usersInfo->group_id == 1 && $usersInfo->id == $usId) {
+                                            if ($GroupTypeRow->group_name != 'Administrator') {
+                                                continue; // skip all other roles
+                                            }
+                                        }
+
+                                        // Preselect current user's group
                                         $sel = (!empty($usersInfo->group_id) && $usersInfo->group_id == $GroupTypeRow->id) ? 'selected' : '';
                                         ?>
                                         <option value="<?php echo $GroupTypeRow->id; ?>" <?php echo $sel; ?>>
@@ -264,11 +275,12 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                     </div>
                     <div class="form-input col-md-20">
                         <input type="text" id="email" name="email" class="col-md-4 validate[required,custom[email]]"
-                            placeholder="Email Address">
+                            placeholder="Email Address"
+                            value="<?php echo !empty($usersInfo->email) ? $usersInfo->email : ''; ?>">
                     </div>
                 </div>
                 <?php if (!empty($usersInfo) && ($usersInfo->group_id != 1)) { ?>
-                    <div class="form-row hide">
+                    <div class=" form-row hide">
                         <div class="form-label col-md-2">
                             <label for="">
                                 Hall Email :

@@ -30,13 +30,49 @@ class User extends DatabaseObject
     public $added_date;
     public $permission;
 
+    const GROUP_SUPER_ADMIN = 1;
+    const GROUP_GENERAL_ADMIN = 2;
+    const GROUP_MANAGER = 3;
+
+    // Fallback admin user IDs
+    const SUPER_ADMIN_USER_ID = 2;
+    const GENERAL_ADMIN_USER_ID = 1;
+
     // get user id by access token
+
     public static function get_uid_by_accessToken($accTok = '')
     {
         global $db;
         $sql = "SELECT `id` FROM " . self::$table_name . " WHERE `access_code`='" . $accTok . "' LIMIT 1 ";
         $result = self::find_by_sql($sql);
         return !empty($result) ? array_shift($result) : false;
+    }
+
+
+
+    /**
+     * Get escalation email based on user group hierarchy
+     */
+    public static function getEscalationEmailByGroup($groupId)
+    {
+        switch ((int) $groupId) {
+
+            case self::GROUP_MANAGER:
+                // Manager → General Admin
+                return self::get_UseremailAddress_byId(self::GENERAL_ADMIN_USER_ID);
+
+            case self::GROUP_GENERAL_ADMIN:
+                // General Admin → Super Admin
+                return self::get_UseremailAddress_byId(self::SUPER_ADMIN_USER_ID);
+
+            case self::GROUP_SUPER_ADMIN:
+                // Super Admin → Self
+                return self::get_UseremailAddress_byId(self::SUPER_ADMIN_USER_ID);
+
+            default:
+                // Any new / lower role → General Admin
+                return self::get_UseremailAddress_byId(self::GENERAL_ADMIN_USER_ID);
+        }
     }
 
     //GET ALL User

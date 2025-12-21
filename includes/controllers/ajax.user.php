@@ -207,15 +207,9 @@ switch ($action) {
 			$fullName = $UserName->first_name . ' ' . $UserName->middle_name . ' ' . $UserName->last_name;
 			$siteName = Config::getField('sitename', true);
 
-			// Determine which admin to send email to based on group
-			$groupTypeId = $forgetRec->group_id; // 1=Super Admin, 2=General Admin, 3=Manager
-			if ($groupTypeId == 3) { // Manager
-				$AdminEmail = User::get_UseremailAddress_byId(2); // General Admin email
-			} elseif ($groupTypeId == 2) { // General Admin
-				$AdminEmail = User::get_UseremailAddress_byId(1); // Super Admin email
-			} else { // Super Admin or fallback
-				$AdminEmail = User::get_UseremailAddress_byId(1);
-			}
+
+			$AdminEmail = User::getEscalationEmailByGroup($forgetRec->group_id);
+
 
 			// Build email body
 			$msgbody = '<div>
