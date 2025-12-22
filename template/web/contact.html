@@ -60,57 +60,76 @@
   <script src="js/owl.js"></script>
   <script src="js/swiper.min.js"></script>
   <script src="js/script.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 
   <!-- form submit -->
   <script src="js/jquery.validate.min.js"></script>
   <script src="js/jquery.form.min.js"></script>
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('#contact_form').validate({
-        errorElement: 'span',
-        errorClass: 'validate-has-error text-danger',
-        rules: {
-          name: { required: true },
-          phone: { required: true, number: true },
-          address: { required: true },
-          email: { required: true, email: true },
-          message: { required: true }
-        },
-        messages: {
-          name: { required: "Please Enter Full Name." },
-          phone: { required: "Please Enter Phone Number." },
-          address: { required: "Please Enter Address." },
-          email: { required: "Please Enter Email Address." },
-          message: { required: "Please Enter Message." }
-        },
-        submitHandler: function (form) {
-          
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#contact_form').validate({
+      errorElement: 'span',
+      errorClass: 'validate-has-error text-danger',
 
-          const formData = new FormData(form);
-          formData.append("action", "forContact");
+      rules: {
+        name: { required: true },
+        phone: { required: true, number: true },
+        address: { required: true },
+        email: { required: true, email: true },
+        message: { required: true }
+      },
 
-          $("button#submit").attr("disabled", true).text('Processing...');
+      messages: {
+        name: "Please Enter Full Name.",
+        phone: "Please Enter Phone Number.",
+        address: "Please Enter Address.",
+        email: "Please Enter Email Address.",
+        message: "Please Enter Message."
+      },
 
-          $.ajax({
-            type: "POST",
-            url: "enquery_mail.php",
-            data: formData,
-            dataType: "json",
-            contentType: false,
-            processData: false,
-            success: function (data) {
-              $("button#submit").removeAttr("disabled").text('Submit');
-              $('div#result_msg').html(data.message).css('display', 'block' ,'color', 'green').fadeOut(8000);
-              form.reset();
-            }
-          });
+      submitHandler: function (form) {
 
+        var recaptcha = $('[name="g-recaptcha-response"]').val();
+        if (!recaptcha) {
+          alert("Please verify that you are not a robot.");
           return false;
         }
-      });
+
+        const formData = new FormData(form);
+        formData.append("action", "forContact");
+
+        $("button#submit").prop("disabled", true).text('Processing...');
+
+        $.ajax({
+          type: "POST",
+          url: "enquery_mail.php",
+          data: formData,
+          dataType: "json",
+          contentType: false,
+          processData: false,
+
+          success: function (data) {
+            $("button#submit").prop("disabled", false).text('Submit');
+            $('#result_msg').html(data.message)
+              .css({ display: 'block', color: 'green' })
+              .fadeOut(8000);
+            form.reset();
+            grecaptcha.reset();
+          },
+
+          error: function () {
+            $("button#submit").prop("disabled", false).text('Submit');
+            alert("Something went wrong. Please try again.");
+          }
+        });
+
+        return false;
+      }
     });
-  </script>
+  });
+</script>
+
 </body>
 
 </html>

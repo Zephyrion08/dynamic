@@ -150,6 +150,11 @@ if (defined('CONTACT_PAGE')) {
                 <textarea name="message" class="form-control required" rows="7"
                   placeholder="Enter Message"></textarea>
               </div>
+              <div class="col-md-12 form-group">
+                                <!-- reCAPTCHA widget -->
+                <div class="g-recaptcha" style="margin-bottom:15px; margin-top:15px;" data-sitekey="6LcXLDMsAAAAAOcRdgFpghRi7swX639Y1zIo6EJ3"></div>
+              </div>
+                            
               <div class="mb-5">
                 <input name="form_botcheck" class="form-control" type="hidden" value="" />
                 <button type="submit" id="submit" class="theme-btn btn-style-one" data-loading-text="Please wait..."><span

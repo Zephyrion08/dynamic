@@ -4,6 +4,9 @@ $usermail = User::get_UseremailAddress_byId(1);
 $ccusermail = User::field_by_id(1, 'optional_email');
 $sitename = Config::getField('sitename', true);
 
+
+
+
 foreach ($_POST as $key => $val) {
     $$key = $val;
 }
@@ -11,6 +14,65 @@ foreach ($_POST as $key => $val) {
 $action = $_POST['action'] ?? ''; // Avoid undefined index warning
 
 if ($action === "forContact"):
+
+
+    $token = $_POST['g-recaptcha-response'] ?? '';
+
+    if (empty($token)) {
+        http_response_code(400);
+        echo json_encode([
+            "action" => "unsuccess",
+            "message" => "Please complete the reCAPTCHA."
+        ]);
+        exit;
+    }
+
+    $secret = '6LcXLDMsAAAAAJ2ixoXLK9X0zgSG2h-I5PGJuIg_'; // move to env in production
+
+    $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => http_build_query([
+            'secret' => $secret,
+            'response' => $token,
+            'remoteip' => $_SERVER['REMOTE_ADDR']
+        ]),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_SSL_VERIFYPEER => true
+    ]);
+
+    $response = curl_exec($ch);
+
+    if ($response === false) {
+        http_response_code(500);
+        echo json_encode([
+            "action" => "unsuccess",
+            "message" => "reCAPTCHA verification request failed."
+        ]);
+        exit;
+    }
+
+    curl_close($ch);
+
+    $result = json_decode($response, true);
+
+    if (empty($result['success'])) {
+        http_response_code(403);
+        echo json_encode([
+            "action" => "unsuccess",
+            "message" => "reCAPTCHA verification failed."
+        ]);
+        exit;
+    }
+
+    /* ✅ Continue email logic here */
+
+
+
+
+
 
     // Extract variables safely
     $name = $_POST['name'] ?? '';
@@ -71,9 +133,12 @@ if ($action === "forContact"):
 
     if (!$mail->Send()) {
         echo json_encode(array("action" => "unsuccess", "message" => "We could not sent your message at the time. Please try again later."));
-    } else {
-        echo json_encode(array("action" => "success", "message" => "Your message has been successfully sent."));
     }
+    echo json_encode([
+        "action" => "success",
+        "message" => "Your message has been successfully sent."
+    ]);
+    exit;
 endif;
 
 
